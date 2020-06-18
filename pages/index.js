@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { Jumbotron, Container, Button } from 'reactstrap';
 import { createUseStyles } from 'react-jss';
 
@@ -16,6 +17,10 @@ const Home = () => {
   const classes = useStyles();
   return (
     <>
+      <Head>
+        <title>Home | Sweeney Restoration</title>
+        <meta property="og:title" content="Home | Sweeney Restoration" key="title" />
+      </Head>
       <Jumbotron className={classes.jumbo}>
         <h1 className="display-3">Sweeney Restoration</h1>
         <p className="lead">New Orleans Construction that's built right.</p>

@@ -1,5 +1,5 @@
+import Head from 'next/head';
 import {
-  Jumbotron,
   Container,
   Row,
   Col,
@@ -12,6 +12,7 @@ import {
 } from 'reactstrap';
 import { createUseStyles } from 'react-jss';
 import Content from '../components/Content';
+import PageHead from '../components/PageHead';
 
 const useStyles = createUseStyles({
   aboutImage: {
@@ -45,9 +46,11 @@ const About = () => {
   const classes = useStyles();
   return (
     <div>
-      <Jumbotron>
-        <h1 className="display-3 text-center">About Us</h1>
-      </Jumbotron>
+      <Head>
+        <title>About Us | Sweeney Restoration</title>
+        <meta property="og:title" content="About Us | Sweeney Restoration" key="title" />
+      </Head>
+      <PageHead title="About Us" />
       <Container>
         <Content title="This is Our Story">
           <Row className="align-items-center">
@@ -62,6 +65,7 @@ const About = () => {
               <img
                 className={classes.image}
                 src="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/img-abt-1440w.jpg"
+                alt="sample"
               />
             </Col>
           </Row>
@@ -84,7 +88,7 @@ const About = () => {
         <Content title="Who are we?">
           <Row>
             {employees.map(e => (
-              <Col key={`employee-${e.name}`}>
+              <Col key={`employee-${e.name}`} lg={6} sm={12} className="mb-4">
                 <Card className="h-100">
                   <CardImg
                     top

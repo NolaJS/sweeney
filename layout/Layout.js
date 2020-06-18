@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 const useStyles = createUseStyles({
   root: {
-    paddingBottom: 70,
+    paddingBottom: 120,
   },
 });
 

@@ -1,6 +1,8 @@
-import { Jumbotron, Container, Row, Col } from 'reactstrap';
+import Head from 'next/head';
+import { Container } from 'reactstrap';
 import Content from '../components/Content';
 import AppCarousel from '../components/Carousel';
+import PageHead from '../components/PageHead';
 
 const items = [
   {
@@ -25,29 +27,28 @@ const items = [
 
 const Process = () => (
   <div>
-    <Jumbotron>
-      <h1 className="display-3 text-center">Our Process</h1>
-    </Jumbotron>
+    <Head>
+      <title>Our Process | Sweeney Restoration</title>
+      <meta property="og:title" content="Our Process | Sweeney Restoration" key="title" />
+    </Head>
+    <PageHead title="Our Process" />
     <Container>
-      <Row>
-        <Col>
-          <AppCarousel items={items} />
-        </Col>
-        <Col>
-          <Content title="Our Process">
-            <ol>
-              <li>Client Content</li>
-              <li>In Home Consultation</li>
-              <li>Builder Services Agreement</li>
-              <li>Design, Data Gathering, and Budget Preparations</li>
-              <li>Proposal Presentation</li>
-              <li>Contract</li>
-              <li>Construction</li>
-              <li>Completion and Project Sign Off</li>
-            </ol>
-          </Content>
-        </Col>
-      </Row>
+      <div className="text-center mb-5">
+        <AppCarousel items={items} />
+      </div>
+      <Content title="Our Process">
+        <ol>
+          <li>Client Content</li>
+          <li>In Home Consultation</li>
+          <li>Builder Services Agreement</li>
+          <li>Design, Data Gathering, and Budget Preparations</li>
+          <li>Proposal Presentation</li>
+          <li>Contract</li>
+          <li>Construction</li>
+          <li>Completion and Project Sign Off</li>
+        </ol>
+      </Content>
+      <Content title="Customer Communication" />
     </Container>
   </div>
 );
