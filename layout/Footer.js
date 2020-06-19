@@ -15,18 +15,26 @@ const Footer = () => {
   const year = new Date().getFullYear();
   return (
     <Container fluid className="bg-dark p-3 text-white">
-      <Row>
+      <Container>
+        <Row className="text-center">
+          <Col md={6}>
+            <p className="m-0">{locale.address}</p>
+            <p className="m-0">{locale.address2}</p>
+          </Col>
+          <Col md={6}>
+            <p className="m-0">{locale.email}</p>
+            <p className="m-0">{locale.phone}</p>
+          </Col>
+        </Row>
+      </Container>
+      <Row className="text-center">
         <Col>
-          {locale.company}
-          4333 Washington Ave.
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {locale.copyright} {year} {locale.company}
-        </Col>
-        <Col className="text-right">
-          {locale.design} {locale.by}
+          <p className="m-0">
+            {locale.copyright} {year} {locale.company}
+          </p>
+          <p className="m-0">
+            {locale.design} {locale.by}
+          </p>
         </Col>
       </Row>
     </Container>

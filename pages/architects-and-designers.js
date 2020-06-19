@@ -18,7 +18,7 @@ const Architects = () => {
       </Jumbotron>
       <Container>
         <Row>
-          <Col sm={12} lg={6}>
+          <Col lg={6}>
             <Content title="Architects and Designers">
               Depending on your needs, we are always pleased to recommend an Architect or Designer
               for your Whidbey Island custom home, or well considered renovation project, and our
@@ -33,7 +33,7 @@ const Architects = () => {
               their projects.
             </Content>
           </Col>
-          <Col sm={12} lg={6}>
+          <Col lg={6}>
             <p>
               We’d love an opportunity to have a conversation during your Contractor selection
               process, and believe we have the capacity and reputation necessary to build your

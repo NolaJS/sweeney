@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Col, Row, Form, FormGroup, Label, Input, Container } from 'reactstrap';
+import { Col, Row, Form, FormGroup, Label, Input, Container, Button } from 'reactstrap';
 import Content from '../components/Content';
 import PageHead from '../components/PageHead';
 
@@ -13,7 +13,7 @@ const Contact = () => {
       <PageHead title="Contact Us" />
       <Container>
         <Row>
-          <Col sm={12} lg={8}>
+          <Col md={8} className="mb-4">
             <Form>
               <Row>
                 <Col>
@@ -57,9 +57,12 @@ const Contact = () => {
                 <Label for="description">Project Description</Label>
                 <Input type="textarea" name="description" id="description" />
               </FormGroup>
+              <Button size="lg" block color="primary">
+                Submit
+              </Button>
             </Form>
           </Col>
-          <Col sm={12} lg={4}>
+          <Col md={4}>
             <Content title="Office Hours">
               <p className="m-0">Monday 7:30AM - 4:30PM</p>
               <p className="m-0">Tuesday 7:30AM - 4:30PM</p>
