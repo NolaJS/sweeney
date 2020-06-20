@@ -1,10 +1,14 @@
 import App from 'next/app';
 import { ThemeProvider } from 'react-jss';
+import { config } from '@fortawesome/fontawesome-svg-core';
 
 import theme from '../themes/default';
 import Layout from '../layout/Layout';
 import './styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
+config.autoAddCss = false;
 
 export default class MyApp extends App {
   componentDidMount() {
