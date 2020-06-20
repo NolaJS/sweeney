@@ -1,8 +1,16 @@
 import PropTypes from 'prop-types';
+import { createUseStyles } from 'react-jss';
+
+const useStyles = createUseStyles({
+  root: {
+    marginBottom: 40,
+  },
+});
 
 const Content = ({ children: description, title }) => {
+  const classes = useStyles();
   return (
-    <div>
+    <div className={classes.root}>
       <h2>{title}</h2>
       {typeof description === 'string' ? <p>{description}</p> : description}
     </div>

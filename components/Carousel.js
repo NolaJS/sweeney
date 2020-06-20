@@ -1,33 +1,48 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Carousel,
-  CarouselItem,
-  CarouselCaption,
-  CarouselIndicators,
-  CarouselControl,
-} from 'reactstrap';
+import { Carousel, CarouselItem } from 'reactstrap';
+import { createUseStyles } from 'react-jss';
+
+const useStyles = createUseStyles({
+  button: {
+    '&:active, &:focus': {
+      outline: 0,
+    },
+    '&:first-child': {
+      marginLeft: 0,
+    },
+    border: 0,
+    borderRadius: 0,
+    boxShadow: '1px 1px 20px 0px rgba(0,0,0,0.4)',
+    margin: [10, 4],
+    padding: 0,
+  },
+  img: {
+    maxHeight: 600,
+    maxWidth: '100%',
+    minHeight: 400,
+    objectFit: 'contain',
+  },
+  imgSmall: {
+    height: 70,
+    objectFit: 'cover',
+    width: 70,
+  },
+  root: {
+    boxShadow: '1px 1px 8px 0px rgba(0,0,0,0.1)',
+  },
+  slider: {
+    textAlign: 'center',
+  },
+  text: {
+    textShadow: '1px 1px #000',
+  },
+});
 
 const AppCarousel = ({ items }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-
-  const next = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-    setActiveIndex(nextIndex);
-  };
-
-  const previous = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-    setActiveIndex(nextIndex);
-  };
-
-  const goToIndex = newIndex => {
-    if (animating) return;
-    setActiveIndex(newIndex);
-  };
+  const classes = useStyles();
 
   const slides = useMemo(
     () =>
@@ -38,22 +53,36 @@ const AppCarousel = ({ items }) => {
             onExiting={() => setAnimating(true)}
             onExited={() => setAnimating(false)}
             key={item.src}
+            className={classes.slider}
           >
-            <img src={item.src} alt={item.altText} />
-            <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+            <img src={item.src} alt={item.altText} className={classes.img} />
           </CarouselItem>
         );
       }),
-    [items],
+    [items, classes],
   );
 
   return (
-    <Carousel activeIndex={activeIndex} next={next} previous={previous}>
-      <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex} />
-      {slides}
-      <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-      <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-    </Carousel>
+    <div>
+      <Carousel className={classes.root} activeIndex={activeIndex} interval={false}>
+        {slides}
+      </Carousel>
+      {items.map((item, i) => (
+        <button
+          className={classes.button}
+          type="button"
+          key={`small-img-${item.src}`}
+          onClick={e => {
+            e.preventDefault();
+            if (animating) return;
+            setActiveIndex(i);
+          }}
+          disabled={animating}
+        >
+          <img src={item.src} alt={item.altText} className={classes.imgSmall} />
+        </button>
+      ))}
+    </div>
   );
 };
 

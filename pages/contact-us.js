@@ -10,7 +10,10 @@ const Contact = () => {
         <title>Contact Us | Sweeney Restoration</title>
         <meta property="og:title" content="Contact Us | Sweeney Restoration" key="title" />
       </Head>
-      <PageHead title="Contact Us" />
+      <PageHead
+        title="Contact Us"
+        img="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/mz13-1920w.jpg"
+      />
       <Container>
         <Row>
           <Col md={8} className="mb-4">
@@ -76,8 +79,13 @@ const Contact = () => {
               <Content title="General Information">
                 <p className="m-0">4333 Washington Ave.</p>
                 <p className="m-0">New Orleans, LA 70125</p>
-                <p className="m-0">Phone. 504-533-0007</p>
-                <p className="m-0">Email. info@sweeneyrestoration.com</p>
+                <p className="m-0">
+                  Phone: <a href="tel:504-533-0007">504-533-0007</a>
+                </p>
+                <p className="m-0">
+                  Email:{' '}
+                  <a href="mailto:info@sweeneyrestoration.com">info@sweeneyrestoration.com</a>
+                </p>
               </Content>
             </div>
           </Col>

@@ -50,7 +50,10 @@ const About = () => {
         <title>About Us | Sweeney Restoration</title>
         <meta property="og:title" content="About Us | Sweeney Restoration" key="title" />
       </Head>
-      <PageHead title="About Us" />
+      <PageHead
+        title="About Us"
+        img="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/ch10-1920w.jpg"
+      />
       <Container>
         <Content title="This is Our Story">
           <Row className="align-items-center">
@@ -61,17 +64,8 @@ const About = () => {
               </p>
               <p>LA Residential Building Contractor License # 881928</p>
             </Col>
-            <Col>
-              <img
-                className={classes.image}
-                src="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/img-abt-1440w.jpg"
-                alt="sample"
-              />
-            </Col>
           </Row>
         </Content>
-        <hr />
-        <hr />
         <Content title="Company Biography">
           <p>
             SRLLC was established in the wake of hurricane Katrina to provide affordable, quality
@@ -83,8 +77,6 @@ const About = () => {
             and historic construction.
           </p>
         </Content>
-        <hr />
-        <hr />
         <Content title="Who are we?">
           <Row>
             {employees.map(e => (

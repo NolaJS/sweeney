@@ -1,6 +1,7 @@
 import Head from 'next/head';
-import { Row, Col, Container, Jumbotron } from 'reactstrap';
+import { Row, Col, Container } from 'reactstrap';
 import Content from '../components/Content';
+import PageHead from '../components/PageHead';
 
 const Architects = () => {
   return (
@@ -13,9 +14,10 @@ const Architects = () => {
           key="title"
         />
       </Head>
-      <Jumbotron>
-        <h1 className="display-3 text-center">Our Process</h1>
-      </Jumbotron>
+      <PageHead
+        title="Architects & Designers"
+        img="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/l13-1920w.jpg"
+      />
       <Container>
         <Row>
           <Col lg={6}>

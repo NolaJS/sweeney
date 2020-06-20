@@ -1,4 +1,28 @@
 import { Row, Col, Container } from 'reactstrap';
+import { createUseStyles, useTheme } from 'react-jss';
+import classnames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faYelp } from '@fortawesome/fontawesome-free-brands';
+
+const useStyles = createUseStyles(theme => ({
+  root: {
+    '& a': {
+      color: '#fff',
+    },
+    backgroundColor: theme.palette.accent,
+    boxShadow: theme.shadow.bottom,
+  },
+  social: {
+    '& a': {
+      color: '#fff',
+      fontSize: 25,
+      margin: [0, 10],
+    },
+    '& img': {
+      height: 25,
+    },
+  },
+}));
 
 const locale = {
   address: '4333 Washington Ave.',
@@ -7,14 +31,16 @@ const locale = {
   company: 'Sweeney Restoration',
   copyright: 'Copyright',
   design: 'Designed and Built by',
-  email: 'info@sweeneyrestoration.com',
-  phone: '504-533-0007',
+  email: <a href="mailto:info@sweeneyrestoration.com">info@sweeneyrestoration.com</a>,
+  phone: <a href="tel:504-533-0007">504-533-0007</a>,
 };
 
 const Footer = () => {
+  const theme = useTheme();
+  const classes = useStyles({ theme });
   const year = new Date().getFullYear();
   return (
-    <Container fluid className="bg-dark p-3 text-white">
+    <Container fluid className={classnames('p-3 text-white', classes.root)}>
       <Container>
         <Row className="text-center">
           <Col md={6}>
@@ -29,6 +55,38 @@ const Footer = () => {
       </Container>
       <Row className="text-center">
         <Col>
+          <div
+            className={classnames(
+              'd-flex align-items-center justify-content-center',
+              classes.social,
+            )}
+          >
+            <a
+              href="https://www.facebook.com/SweeneyRestoration/"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
+              <FontAwesomeIcon icon={faFacebook} />
+            </a>
+            <a
+              href="https://www.yelp.com/biz/sweeney-restoration-new-orleans"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
+              <FontAwesomeIcon icon={faYelp} />
+            </a>
+            <a
+              href="https://www.angieslist.com/companylist/us/la/new-orleans/sweeney-restoration%2C-llc-reviews-2313165.htm"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
+              <img
+                className={classes.socialIcon}
+                src="/angies-list-icon.svg"
+                alt="Angie's list icon"
+              />
+            </a>
+          </div>
           <p className="m-0">
             {locale.copyright} {year} {locale.company}
           </p>
