@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Carousel, CarouselItem } from 'reactstrap';
+import { Carousel, CarouselItem, CarouselIndicators } from 'reactstrap';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
@@ -35,6 +35,9 @@ const useStyles = createUseStyles({
     height: '100%',
     maxWidth: '100%',
     objectFit: 'cover',
+  },
+  indicator: {
+    display: 'none',
   },
   instructions: {
     '& span': {
@@ -82,6 +85,11 @@ const AppCarousel = ({ items }) => {
     setActiveIndex(nextIndex);
   };
 
+  const goToIndex = newIndex => {
+    if (animating) return;
+    setActiveIndex(newIndex);
+  };
+
   const slides = useMemo(
     () =>
       items &&
@@ -109,10 +117,16 @@ const AppCarousel = ({ items }) => {
         next={next}
         previous={previous}
       >
+        <CarouselIndicators
+          className={classes.indicator}
+          items={items}
+          activeIndex={activeIndex}
+          onClickHandler={goToIndex}
+        />
         {slides}
       </Carousel>
       <div className={classes.instructions}>
-        Click on image to view. <span>Images below are scrollable.</span>
+        Click on image below to view. <span>Images are scrollable.</span>
       </div>
       <div className={classes.thumbnailContainer}>
         {items.map((item, i) => (
