@@ -8,6 +8,10 @@ const useStyles = createUseStyles({
     '&:active, &:focus': {
       outline: 0,
     },
+    '@media (max-width: 480px)': {
+      boxShadow: '1px 1px 8px 0px rgba(0,0,0,0.4)',
+      margin: [0, 10],
+    },
     border: 0,
     borderRadius: 0,
     boxShadow: '1px 1px 20px 0px rgba(0,0,0,0.4)',
@@ -32,6 +36,17 @@ const useStyles = createUseStyles({
     maxWidth: '100%',
     objectFit: 'cover',
   },
+  instructions: {
+    '& span': {
+      '@media (max-width: 480px)': {
+        display: 'block',
+        marginBottom: 10,
+      },
+      display: 'none',
+    },
+    marginTop: 10,
+    textAlign: 'center',
+  },
   root: {
     boxShadow: '1px 1px 8px 0px rgba(0,0,0,0.1)',
   },
@@ -42,6 +57,10 @@ const useStyles = createUseStyles({
     textShadow: '1px 1px #000',
   },
   thumbnailContainer: {
+    '@media (max-width: 480px)': {
+      display: 'flex',
+      overflow: 'auto',
+    },
     textAlign: 'center',
   },
 });
@@ -50,6 +69,18 @@ const AppCarousel = ({ items }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const classes = useStyles();
+
+  const next = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
+  };
+
+  const previous = () => {
+    if (animating) return;
+    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
+  };
 
   const slides = useMemo(
     () =>
@@ -71,9 +102,18 @@ const AppCarousel = ({ items }) => {
 
   return (
     <div>
-      <Carousel className={classes.root} activeIndex={activeIndex} interval={false}>
+      <Carousel
+        className={classes.root}
+        activeIndex={activeIndex}
+        interval={false}
+        next={next}
+        previous={previous}
+      >
         {slides}
       </Carousel>
+      <div className={classes.instructions}>
+        Click on image to view. <span>Images below are scrollable.</span>
+      </div>
       <div className={classes.thumbnailContainer}>
         {items.map((item, i) => (
           <button
