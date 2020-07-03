@@ -8,25 +8,29 @@ const useStyles = createUseStyles({
     '&:active, &:focus': {
       outline: 0,
     },
-    '&:first-child': {
-      marginLeft: 0,
-    },
     border: 0,
     borderRadius: 0,
     boxShadow: '1px 1px 20px 0px rgba(0,0,0,0.4)',
+    height: 68,
     margin: [10, 4],
+    maxWidth: 68,
+    minWidth: 68,
     padding: 0,
+    textAlign: 'center',
   },
   img: {
+    '@media (max-width: 480px)': {
+      maxHeight: 400,
+    },
     maxHeight: 600,
     maxWidth: '100%',
     minHeight: 400,
     objectFit: 'contain',
   },
   imgSmall: {
-    height: 70,
+    height: '100%',
+    maxWidth: '100%',
     objectFit: 'cover',
-    width: 70,
   },
   root: {
     boxShadow: '1px 1px 8px 0px rgba(0,0,0,0.1)',
@@ -36,6 +40,9 @@ const useStyles = createUseStyles({
   },
   text: {
     textShadow: '1px 1px #000',
+  },
+  thumbnailContainer: {
+    textAlign: 'center',
   },
 });
 
@@ -67,21 +74,23 @@ const AppCarousel = ({ items }) => {
       <Carousel className={classes.root} activeIndex={activeIndex} interval={false}>
         {slides}
       </Carousel>
-      {items.map((item, i) => (
-        <button
-          className={classes.button}
-          type="button"
-          key={`small-img-${item.src}`}
-          onClick={e => {
-            e.preventDefault();
-            if (animating) return;
-            setActiveIndex(i);
-          }}
-          disabled={animating}
-        >
-          <img src={item.src} alt={item.altText} className={classes.imgSmall} />
-        </button>
-      ))}
+      <div className={classes.thumbnailContainer}>
+        {items.map((item, i) => (
+          <button
+            className={classes.button}
+            type="button"
+            key={`small-img-${item.src}`}
+            onClick={e => {
+              e.preventDefault();
+              if (animating) return;
+              setActiveIndex(i);
+            }}
+            disabled={animating}
+          >
+            <img src={item.src} alt={item.altText} className={classes.imgSmall} />
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

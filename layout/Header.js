@@ -62,7 +62,9 @@ const Header = () => {
         fluid
         className={classnames('px-3 px-lg-5 d-flex justify-content-end', classes.topBar)}
       >
-        <Link href="/contact-us">Request a Quote</Link>
+        <Link href="/contact-us">
+          <a>Request a Quote</a>
+        </Link>
         <a
           href="https://coconstruct.com/app/default/default.aspx"
           target="_blank"

@@ -3,21 +3,7 @@ import { Container } from 'reactstrap';
 import PageHead from '../components/PageHead';
 import Content from '../components/Content';
 import Carousel from '../components/Carousel';
-
-const jena = [
-  {
-    src:
-      'https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/Jena+-+before+n+after+1-1920w.jpg',
-  },
-  {
-    src:
-      'https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/Jena+-+008_1600x1067_mls_1600x1067-1920w.jpg',
-  },
-  {
-    src:
-      'https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/Jena+-+before+n+after+2-1920w.jpg',
-  },
-];
+import picBuckets from '../utils/output.json';
 
 const Portfolio = () => {
   return (
@@ -31,9 +17,11 @@ const Portfolio = () => {
         img="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/m1-1920w.jpg"
       />
       <Container>
-        <Content title="Jena">
-          <Carousel items={jena} />
-        </Content>
+        {picBuckets.map(p => (
+          <Content key={p.name} title={p.name}>
+            <Carousel items={p.pics} />
+          </Content>
+        ))}
       </Container>
     </div>
   );
