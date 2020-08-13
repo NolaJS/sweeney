@@ -2,7 +2,7 @@ import { Row, Col, Container } from 'reactstrap';
 import { createUseStyles, useTheme } from 'react-jss';
 import classnames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faYelp } from '@fortawesome/fontawesome-free-brands';
+import { faFacebook, faYelp, faInstagram, faTwitter } from '@fortawesome/fontawesome-free-brands';
 
 const useStyles = createUseStyles(theme => ({
   root: {
@@ -69,6 +69,13 @@ const Footer = () => {
               <FontAwesomeIcon icon={faFacebook} />
             </a>
             <a
+              href="https://www.instagram.com/sweeneyrestoration"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
+              <FontAwesomeIcon icon={faInstagram} />
+            </a>
+            <a
               href="https://www.yelp.com/biz/sweeney-restoration-new-orleans"
               target="_blank"
               rel="noopener noreferrer nofollow"
@@ -76,15 +83,11 @@ const Footer = () => {
               <FontAwesomeIcon icon={faYelp} />
             </a>
             <a
-              href="https://www.angieslist.com/companylist/us/la/new-orleans/sweeney-restoration%2C-llc-reviews-2313165.htm"
+              href="https://twitter.com/sweeneyllc"
               target="_blank"
               rel="noopener noreferrer nofollow"
             >
-              <img
-                className={classes.socialIcon}
-                src="/angies-list-icon.svg"
-                alt="Angie's list icon"
-              />
+              <FontAwesomeIcon icon={faTwitter} />
             </a>
           </div>
           <p className="m-0">
