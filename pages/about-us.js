@@ -1,29 +1,7 @@
 import Head from 'next/head';
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardImg,
-  CardTitle,
-  CardBody,
-  CardSubtitle,
-  CardText,
-} from 'reactstrap';
-import { createUseStyles } from 'react-jss';
+import { Container, Row, Col, Card, CardTitle, CardBody, CardSubtitle, CardText } from 'reactstrap';
 import Content from '../components/Content';
 import PageHead from '../components/PageHead';
-
-const useStyles = createUseStyles({
-  aboutImage: {
-    maxHeight: 300,
-    objectFit: 'cover',
-  },
-  image: {
-    maxWidth: '100%',
-    objectFit: 'cover',
-  },
-});
 
 const employees = [
   {
@@ -40,10 +18,16 @@ const employees = [
     name: 'Travis Spencer',
     title: 'COO, Project Manager',
   },
+  {
+    description:
+      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe tenetur, atque accusamus debitis eius a blanditiis aut. Non corrupti tenetur numquam totam expedita minus. Minus corrupti dolore necessitatibus reprehenderit nulla.',
+    image: 'https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/travis-960w.jpg',
+    name: 'Will Someone',
+    title: 'TBA',
+  },
 ];
 
 const About = () => {
-  const classes = useStyles();
   return (
     <div>
       <Head>
@@ -78,17 +62,10 @@ const About = () => {
           </p>
         </Content>
         <Content title="Who are we?">
-          <Row>
+          <Row className="justify-content-center">
             {employees.map(e => (
               <Col key={`employee-${e.name}`} lg={6} sm={12} className="mb-4">
                 <Card className="h-100">
-                  <CardImg
-                    top
-                    width="100%"
-                    src={e.image}
-                    alt={`${e.name} profile`}
-                    className={classes.aboutImage}
-                  />
                   <CardBody>
                     <CardTitle className="display-4">{e.name}</CardTitle>
                     <CardSubtitle className="lead">{e.title}</CardSubtitle>
