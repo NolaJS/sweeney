@@ -14,6 +14,9 @@ const useStyles = createUseStyles({
     position: 'relative',
   },
   jumboImage: {
+    '@media (min-width: 1000px)': {
+      objectPosition: '50% 65%',
+    },
     filter: 'brightness(0.7)',
     height: '100%',
     left: 0,

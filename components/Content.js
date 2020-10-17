@@ -2,6 +2,13 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
+  '@media (max-width: 480px)': {
+    root: {
+      '& h2': {
+        fontSize: 18,
+      },
+    },
+  },
   root: {
     marginBottom: 40,
   },

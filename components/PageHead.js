@@ -5,6 +5,9 @@ import classnames from 'classnames';
 
 const useStyles = createUseStyles({
   img: {
+    '@media (min-width: 1000px)': {
+      objectPosition: '50% 55%',
+    },
     filter: 'brightness(0.7)',
     height: '100%',
     left: 0,

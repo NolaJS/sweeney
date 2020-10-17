@@ -14,10 +14,7 @@ const Architects = () => {
           key="title"
         />
       </Head>
-      <PageHead
-        title="Architects & Designers"
-        img="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/l13-1920w.jpg"
-      />
+      <PageHead title="Architects & Designers" img="architect.jpg" />
       <Container>
         <Row>
           <Col lg={6}>

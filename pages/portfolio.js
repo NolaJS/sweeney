@@ -12,13 +12,10 @@ const Portfolio = () => {
         <title>Portfolio | Sweeney Restoration</title>
         <meta property="og:title" content="Portfolio | Sweeney Restoration" key="title" />
       </Head>
-      <PageHead
-        title="Portfolio"
-        img="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/m1-1920w.jpg"
-      />
+      <PageHead title="Portfolio" img="portfolio.jpg" />
       <Container>
         {picBuckets.map(p => (
-          <Content key={p.name} title={p.name}>
+          <Content key={p.name} title={p.name.split('-')[1]}>
             <Carousel items={p.pics} />
           </Content>
         ))}

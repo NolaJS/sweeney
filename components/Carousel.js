@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Carousel, CarouselItem, CarouselIndicators } from 'reactstrap';
+import { Carousel, CarouselItem, CarouselIndicators, CarouselControl } from 'reactstrap';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles({
@@ -124,6 +124,8 @@ const AppCarousel = ({ items }) => {
           onClickHandler={goToIndex}
         />
         {slides}
+        <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+        <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
       </Carousel>
       <div className={classes.instructions}>
         Click on image below to view. <span>Images are scrollable.</span>

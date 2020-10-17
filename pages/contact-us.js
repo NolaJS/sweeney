@@ -49,9 +49,8 @@ const Contact = () => {
               <FormGroup>
                 <Label for="projectType">Project Type</Label>
                 <Input type="select" name="ProjectType" id="projectType">
-                  <option>Historic Restoration</option>
                   <option>New Construction</option>
-                  <option>Renovations</option>
+                  <option>Remodel</option>
                   <option>Addition</option>
                   <option>Other</option>
                 </Input>
