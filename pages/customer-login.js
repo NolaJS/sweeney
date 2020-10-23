@@ -9,10 +9,7 @@ const Portfolio = () => {
         <title>Customer Login | Sweeney Restoration</title>
         <meta property="og:title" content="Customer Login | Sweeney Restoration" key="title" />
       </Head>
-      <PageHead
-        title="Customer Login"
-        img="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/m1-1920w.jpg"
-      />
+      <PageHead title="Customer Login" img="customer-login.jpg" />
       <Container>
         <div className="text-center">
           <iframe

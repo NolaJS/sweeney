@@ -20,16 +20,14 @@ const Architects = () => {
           <Col lg={6}>
             <Content title="Architects and Designers">
               Depending on your needs, we are always pleased to recommend an Architect or Designer
-              for your Whidbey Island custom home, or well considered renovation project, and our
-              recommendations include select Whidbey-based contacts as well as architects from the
-              Greater Seattle area, with whom we collaborate and facilitate to streamline processes
-              here on Whidbey Island.
+              for your custom renovation project or custom home, and our recommendations include
+              select contacts as well as architects from the New Orleans area, with whom we
+              collaborate and facilitate to streamline processes here in New Orleans.
             </Content>
             <Content title="Note to Architects & Designers">
-              If you are an Architect designing a home on Whidbey Island, you might not be based
-              here. We’ve worked with many Architects throughout the greater Puget Sound area, and
-              understand that most Architects have a select group of builders they trust to build
-              their projects.
+              If you are an architect designing a home in New Orleans, you might not be based here.
+              We’ve worked with many Architects throughout the New Orleans area, and understand that
+              most Architects have a select group of builders they trust to build their projects.
             </Content>
           </Col>
           <Col lg={6}>
@@ -41,7 +39,7 @@ const Architects = () => {
               coordination liaison, and provide pricing input as design progresses.
             </p>
             <p>
-              We can integrate your submittal requirements in ways that work for you- or we can
+              We can integrate your submittal requirements in ways that work for you – or we can
               provide our internal submittal platform if you don’t have a process in place that you
               love. We understand what you need, and are here to support your process.
             </p>

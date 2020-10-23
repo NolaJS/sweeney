@@ -37,11 +37,7 @@ const Home = () => {
         <meta property="og:title" content="Home | Sweeney Restoration" key="title" />
       </Head>
       <Jumbotron className={classnames('text-white', classes.jumbo)}>
-        <img
-          src="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/ch9-1920w.jpg"
-          alt="lead"
-          className={classes.jumboImage}
-        />
+        <img src="home.jpg" alt="lead" className={classes.jumboImage} />
         <h1 className="display-3">Sweeney Restoration</h1>
         <p className="display-4">Build It Right</p>
         <p className="lead">
@@ -52,29 +48,25 @@ const Home = () => {
       </Jumbotron>
       <Container>
         <Content title="Mission.">
+          <p>Welcome to Sweeney Restoration!</p>
           <p>
-            Sweeney Restoration, LLC is a full service, licensed residential building contractor
-            specializing in historic home renovations and new construction. The mission of Sweeney
-            Restoration is to provide high quality construction service that enriches the lives of
-            our clients. We offer personal and hands on service to ensure quality control and we
-            believe that quality starts from the inside and shows through to the finished product.
+            Sweeney Restoration strives to provide high quality service in home remodels and new
+            home construction. We believe in building relationships through transparency, trust and
+            teamwork. Our team will manage every project with careful attention to you and to every
+            detail.
           </p>
         </Content>
         <Content title="Design.">
           <p>
             Our projects are the result of collaboration with talented architects, great clients,
-            skilled craftsmen, and our construction management team.
+            skilled craftsmen and our construction management team.
           </p>
         </Content>
-        <Content title="Ownership.">
+        <Content title="Management.">
           <p>
-            SRLLC was established in the wake of hurricane Katrina to provide affordable, quality
-            renovations to New Orleans area home owners. In the midst of so many expensive, out of
-            town and scam contractors attracted to the region by the amount of work, Devon Sweeney
-            found inspiration and established Sweeney Restoration. He was determined to offer a high
-            quality renovation service to his friends and referred clients. Since then SRLLC has
-            grown to become a full service general contracting company. Experienced in remodel, new
-            and historic construction.
+            Each project undertaken offers personal, hands on service to ensure quality control.
+            Trust, communication and honesty are valued above all else. Accessibility to project
+            budgets, invoices and correspondence is provided to our clients related to their job.
           </p>
         </Content>
       </Container>

@@ -22,6 +22,15 @@ const useStyles = createUseStyles({
     padding: 0,
     textAlign: 'center',
   },
+  control: {
+    '& span': {
+      backgroundColor: 'rgba(0, 0, 0, .1)',
+      filter: 'invert(1)',
+    },
+    '@media (max-width: 480px)': {
+      display: 'none',
+    },
+  },
   img: {
     '@media (max-width: 480px)': {
       maxHeight: 400,
@@ -124,8 +133,18 @@ const AppCarousel = ({ items }) => {
           onClickHandler={goToIndex}
         />
         {slides}
-        <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
-        <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
+        <CarouselControl
+          className={classes.control}
+          direction="prev"
+          directionText="Previous"
+          onClickHandler={previous}
+        />
+        <CarouselControl
+          className={classes.control}
+          direction="next"
+          directionText="Next"
+          onClickHandler={next}
+        />
       </Carousel>
       <div className={classes.instructions}>
         Click on image below to view. <span>Images are scrollable.</span>

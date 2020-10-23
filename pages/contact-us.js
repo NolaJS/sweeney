@@ -156,10 +156,7 @@ const Contact = () => {
         <meta property="og:title" content="Contact Us | Sweeney Restoration" key="title" />
         <script src="https://www.google.com/recaptcha/api.js?render=6LcttdgZAAAAADqMr5udsQdCKWQies8zkPSiMZoi" />
       </Head>
-      <PageHead
-        title="Contact Us"
-        img="https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/mz13-1920w.jpg"
-      />
+      <PageHead title="Contact Us" img="contact.jpg" />
       <Container>
         <Row>
           <Col md={8} className="mb-4">

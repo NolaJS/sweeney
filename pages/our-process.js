@@ -31,11 +31,9 @@ const Process = () => {
         <Content title="Our Process">
           <ol>
             <li>Client Contact</li>
-            <li>Client Consultation</li>
-            <li>Pre-Construction Services Agreement</li>
             <li>In Home Consultation</li>
-            <li>Builder Services Agreement</li>
-            <li>Design, Data Gathering, and Budget Preparations</li>
+            <li>Pre-Construction Services Agreement</li>
+            <li>Design, Data Gathering and Budget Preparations</li>
             <li>Proposal Presentation</li>
             <li>Contract</li>
             <li>Construction</li>
