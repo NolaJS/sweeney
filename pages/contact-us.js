@@ -1,8 +1,17 @@
 import { useCallback, useState, useMemo } from 'react';
 import Head from 'next/head';
 import { Col, Row, Form, FormGroup, Label, Input, Container, Button, Spinner } from 'reactstrap';
+import { createUseStyles } from 'react-jss';
 import Content from '../components/Content';
 import PageHead from '../components/PageHead';
+
+const useStyles = createUseStyles({
+  google: {
+    fontSize: 10,
+    fontStyle: 'italic',
+    textAlign: 'center',
+  },
+});
 
 const Contact = () => {
   const [loading, setLoading] = useState(false);
@@ -16,6 +25,7 @@ const Contact = () => {
     projectAddress: '',
     projectType: 'New Construction',
   });
+  const classes = useStyles();
 
   const onSubmit = useCallback(
     e => {
@@ -134,6 +144,17 @@ const Contact = () => {
         <Button size="lg" block color="primary" type="submit" disabled={loading}>
           {loading ? <Spinner color="light" /> : 'Submit'}
         </Button>
+        <p className={classes.google}>
+          This site is protected by reCAPTCHA and the Google{' '}
+          <a target="_blank" rel="noreferrer" href="https://policies.google.com/privacy">
+            Privacy Policy
+          </a>{' '}
+          and{' '}
+          <a target="_blank" rel="noreferrer" href="https://policies.google.com/terms">
+            Terms of Service
+          </a>{' '}
+          apply.
+        </p>
       </Form>
     );
   }, [
@@ -147,6 +168,7 @@ const Contact = () => {
     onChange,
     onSubmit,
     success,
+    classes.google,
   ]);
 
   return (
