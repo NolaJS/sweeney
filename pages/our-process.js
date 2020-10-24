@@ -25,6 +25,7 @@ const Process = () => {
       <Head>
         <title>Our Process | Sweeney Restoration</title>
         <meta property="og:title" content="Our Process | Sweeney Restoration" key="title" />
+        <meta name="robots" content="index,follow" />
       </Head>
       <PageHead title="Our Process" img="our-process.jpg" />
       <Container>

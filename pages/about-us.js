@@ -33,6 +33,7 @@ const About = () => {
       <Head>
         <title>About Us | Sweeney Restoration</title>
         <meta property="og:title" content="About Us | Sweeney Restoration" key="title" />
+        <meta name="robots" content="index,follow" />
       </Head>
       <PageHead title="About Us" img="about.jpg" />
       <Container>

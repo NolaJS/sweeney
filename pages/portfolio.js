@@ -11,6 +11,7 @@ const Portfolio = () => {
       <Head>
         <title>Portfolio | Sweeney Restoration</title>
         <meta property="og:title" content="Portfolio | Sweeney Restoration" key="title" />
+        <meta name="robots" content="index,follow" />
       </Head>
       <PageHead title="Portfolio" img="portfolio.jpg" />
       <Container>

@@ -35,6 +35,7 @@ const Home = () => {
       <Head>
         <title>Home | Sweeney Restoration</title>
         <meta property="og:title" content="Home | Sweeney Restoration" key="title" />
+        <meta name="robots" content="index,follow" />
       </Head>
       <Jumbotron className={classnames('text-white', classes.jumbo)}>
         <img src="home.jpg" alt="lead" className={classes.jumboImage} />

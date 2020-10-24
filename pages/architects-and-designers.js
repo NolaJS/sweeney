@@ -13,6 +13,7 @@ const Architects = () => {
           content="Architects & Designers | Sweeney Restoration"
           key="title"
         />
+        <meta name="robots" content="index,follow" />
       </Head>
       <PageHead title="Architects & Designers" img="architect.jpg" />
       <Container>

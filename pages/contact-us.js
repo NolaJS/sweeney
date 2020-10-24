@@ -176,6 +176,7 @@ const Contact = () => {
       <Head>
         <title>Contact Us | Sweeney Restoration</title>
         <meta property="og:title" content="Contact Us | Sweeney Restoration" key="title" />
+        <meta name="robots" content="index,follow" />
         <script src="https://www.google.com/recaptcha/api.js?render=6LcttdgZAAAAADqMr5udsQdCKWQies8zkPSiMZoi" />
       </Head>
       <PageHead title="Contact Us" img="contact.jpg" />

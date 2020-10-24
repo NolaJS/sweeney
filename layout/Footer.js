@@ -5,6 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faYelp, faInstagram, faTwitter } from '@fortawesome/fontawesome-free-brands';
 
 const useStyles = createUseStyles(theme => ({
+  hbaImages: {
+    filter: 'brightness(0) invert(1)',
+    margin: 10,
+    maxHeight: 75,
+  },
   root: {
     '& a': {
       color: '#fff',
@@ -54,6 +59,18 @@ const Footer = () => {
         </Row>
       </Container>
       <Row className="text-center">
+        <Col md={2}>
+          <img
+            className={classes.hbaImages}
+            src="hbagno-logo.png"
+            alt="home builders association of greater new orleans member"
+          />
+          <img
+            className={`${classes.hbaImages} d-inline-block d-md-none`}
+            src="nahb-logo.png"
+            alt="national association of home builders member"
+          />
+        </Col>
         <Col>
           <div
             className={classnames(
@@ -96,6 +113,13 @@ const Footer = () => {
           <p className="m-0">
             {locale.design} {locale.by}
           </p>
+        </Col>
+        <Col md={2} className="d-none d-md-block">
+          <img
+            className={classes.hbaImages}
+            src="nahb-logo.png"
+            alt="national association of home builders member"
+          />
         </Col>
       </Row>
     </Container>
