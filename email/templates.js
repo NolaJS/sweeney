@@ -7,7 +7,7 @@ export const contactEmail = to => ({
   bcc: admins,
   from,
   html: getLayout({
-    content: `<p>We will respond to inquiry shortly. Thank you again for your interest.</p>`,
+    content: `<p>Thank you for your interest! We will respond to your inquiry shortly.</p>`,
     title: 'Sweeney Restoration - Thank you',
   }),
   subject: 'Thank you for contacting Sweeney Restoration',
