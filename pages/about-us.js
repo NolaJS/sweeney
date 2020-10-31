@@ -44,14 +44,10 @@ const About = () => {
                 Sweeney Restoration was established in the wake of hurricane Katrina to provide
                 quality renovations and reliable service to the New Orleans community. In the midst
                 of regional rejuvenation and restoration, Devon Sweeney found inspiration and
-                established Sweeney Restoration. His aspiration was to provide excellent quality
-                renovation construction services to his clients. Since then, Sweeney Restoration has
-                grown to become a full-service general contracting business providing custom
-                remodeling and new construction.
-              </p>
-              <p>
-                Sweeney Restoration, LLC is a full service, licensed residential building contractor
-                specializing in historic home renovations and new construction.
+                established Sweeney Restoration. His goal was to provide excellent construction
+                services to his clients. Since then, Sweeney Restoration has grown to become a
+                full-service general contracting business providing custom remodeling and new
+                construction.
               </p>
               <p>LA Residential Building Contractor License # 881928.</p>
             </Col>
@@ -60,7 +56,7 @@ const About = () => {
         <Content title="Who are we?">
           <Row className="justify-content-center">
             {employees.map(e => (
-              <Col key={`employee-${e.name}`} lg={6} sm={12} className="mb-4">
+              <Col key={`employee-${e.name}`} sm={12} className="mb-4">
                 <Card className="h-100">
                   <CardBody>
                     <CardTitle className="h3">{e.name}</CardTitle>

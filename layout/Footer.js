@@ -60,16 +60,20 @@ const Footer = () => {
       </Container>
       <Row className="text-center">
         <Col md={2}>
-          <img
-            className={classes.hbaImages}
-            src="hbagno-logo.png"
-            alt="home builders association of greater new orleans member"
-          />
-          <img
-            className={`${classes.hbaImages} d-inline-block d-md-none`}
-            src="nahb-logo.png"
-            alt="national association of home builders member"
-          />
+          <a href="https://www.hbagno.org/" target="_blank" rel="noopener noreferrer nofollow">
+            <img
+              className={classes.hbaImages}
+              src="hbagno-logo.png"
+              alt="home builders association of greater new orleans member"
+            />
+          </a>
+          <a href="https://www.nahb.org/" target="_blank" rel="noopener noreferrer nofollow">
+            <img
+              className={`${classes.hbaImages} d-inline-block d-md-none`}
+              src="nahb-logo.png"
+              alt="national association of home builders member"
+            />
+          </a>
         </Col>
         <Col>
           <div
@@ -115,11 +119,13 @@ const Footer = () => {
           </p>
         </Col>
         <Col md={2} className="d-none d-md-block">
-          <img
-            className={classes.hbaImages}
-            src="nahb-logo.png"
-            alt="national association of home builders member"
-          />
+          <a href="https://www.nahb.org/" target="_blank" rel="noopener noreferrer nofollow">
+            <img
+              className={classes.hbaImages}
+              src="nahb-logo.png"
+              alt="national association of home builders member"
+            />
+          </a>
         </Col>
       </Row>
     </Container>

@@ -49,7 +49,6 @@ const Home = () => {
       </Jumbotron>
       <Container>
         <Content title="Mission.">
-          <p>Welcome to Sweeney Restoration!</p>
           <p>
             Sweeney Restoration strives to provide high quality service in home remodels and new
             home construction. We believe in building relationships through transparency, trust and
