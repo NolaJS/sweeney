@@ -20,10 +20,10 @@ const Architects = () => {
         <Row>
           <Col lg={6}>
             <Content title="Architects and Designers">
-              Depending on your interest and needs, we are always pleased to recommend an Architect
-              or Designer for your custom renovation project or custom home. Our recommendations
-              include select contacts as well as architects from the New Orleans area with whom we
-              collaborate and facilitate to streamline the construction process.
+              We are always pleased to recommend an architect or designer for your custom renovation
+              project or custom home. Our recommendations include select contacts as well as
+              architects from the New Orleans area with whom we collaborate and facilitate to
+              streamline the construction process.
             </Content>
             <Content title="Note to Architects & Designers">
               Sweeney Restoration has worked with many architects throughout New Orleans, and we
