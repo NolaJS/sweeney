@@ -81,6 +81,18 @@ export default class JssDocument extends Document {
           `,
             }}
           />
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-8HBZNDJ33Y" />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', 'G-8HBZNDJ33Y');
+                `,
+            }}
+          />
         </Head>
         <body>
           <Main />

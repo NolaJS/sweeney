@@ -1,10 +1,9 @@
 import getLayout from './getLayout';
 
 const from = 'noreply@sweeneyrestoration.com';
-const admins = ['sscaff1@gmail.com'];
+const admins = ['devon@sweeneyrestoration.com'];
 
 export const contactEmail = to => ({
-  bcc: admins,
   from,
   html: getLayout({
     content: `<p>Thank you for your interest! We will respond to your inquiry shortly.</p>`,
