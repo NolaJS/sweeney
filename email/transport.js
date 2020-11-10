@@ -4,7 +4,7 @@ import mg from 'nodemailer-mailgun-transport';
 const auth = {
   auth: {
     api_key: process.env.MG_API_KEY,
-    domain: 'mg.nolajs.com',
+    domain: 'mg.sweeneyrestoration.com',
   },
 };
 
