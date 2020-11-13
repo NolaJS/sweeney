@@ -69,8 +69,8 @@ export default class JssDocument extends Document {
                 "@type": "Organization",
                 "name": "Sweeney Restoration",
                 "telephone": "(800) 782-1967",
-                "logo": ${logoImg},
-                "url": https://www.sweeneyrestoration.com/,
+                "logo": "${logoImg}",
+                "url": "https://www.sweeneyrestoration.com/",
                 "sameAs": [
                     "https://twitter.com/sweeneyllc"
                     "https://www.yelp.com/biz/sweeney-restoration-new-orleans",
