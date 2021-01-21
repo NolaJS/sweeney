@@ -1,189 +1,138 @@
-import { useCallback, useState, useMemo } from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import Head from 'next/head';
-import { Col, Row, Form, FormGroup, Label, Input, Container, Button, Spinner } from 'reactstrap';
-import { createUseStyles } from 'react-jss';
+import { Col, Row, Container } from 'reactstrap';
 import Content from '../components/Content';
 import PageHead from '../components/PageHead';
 
-const useStyles = createUseStyles({
-  google: {
-    fontSize: 10,
-    fontStyle: 'italic',
-    textAlign: 'center',
-  },
-});
-
 const Contact = () => {
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
-  const [formState, setFormState] = useState({
-    description: '',
-    email: '',
-    name: '',
-    phoneNumber: '',
-    projectAddress: '',
-    projectType: 'New Construction',
-  });
-  const classes = useStyles();
-
-  const onSubmit = useCallback(
-    e => {
-      e.preventDefault();
-      setLoading(true);
-      setError(false);
-      window.grecaptcha.ready(() => {
-        window.grecaptcha
-          .execute('6LcttdgZAAAAADqMr5udsQdCKWQies8zkPSiMZoi', { action: 'submit' })
-          .then(token =>
-            fetch('/api/sendEmail', {
-              body: JSON.stringify({ ...formState, token }),
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              method: 'POST',
-            }),
-          )
-          .then(res => {
-            if (res.status !== 200) {
-              setError(true);
-            } else {
-              setSuccess(true);
-            }
-            setLoading(false);
-          })
-          .catch(() => {
-            setError(true);
-            setLoading(false);
-          });
-      });
-    },
-    [formState],
-  );
-
-  const onChange = useCallback(e => {
-    const { name, value } = e.target;
-    setFormState(f => ({
-      ...f,
-      [name]: value,
-    }));
-  }, []);
-
-  const formUi = useMemo(() => {
-    if (success) {
-      return <h3>Thank you for contacting Sweeney Restoration. We will contact you shortly.</h3>;
-    }
-
-    return (
-      <Form onSubmit={onSubmit}>
-        {error ? <p className="text-danger">An error occurred please try again.</p> : null}
-        <Row>
-          <Col>
-            <FormGroup>
-              <Label for="name">Name</Label>
-              <Input name="name" id="name" onChange={onChange} value={formState.name} />
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <Label for="email">Email</Label>
-              <Input
-                type="email"
-                name="email"
-                id="email"
-                onChange={onChange}
-                value={formState.email}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <FormGroup>
-              <Label for="phoneNumber">Phone Number</Label>
-              <Input
-                type="tel"
-                name="phoneNumber"
-                id="phoneNumber"
-                onChange={onChange}
-                value={formState.phoneNumber}
-              />
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <Label for="projectAddress">Project Address</Label>
-              <Input
-                name="projectAddress"
-                id="projectAddress"
-                onChange={onChange}
-                value={formState.projectAddress}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <FormGroup>
-          <Label for="projectType">Project Type</Label>
-          <Input
-            type="select"
-            name="projectType"
-            id="projectType"
-            onChange={onChange}
-            value={formState.projectType}
-          >
-            <option>New Construction</option>
-            <option>Remodel</option>
-            <option>Addition</option>
-            <option>Other</option>
-          </Input>
-        </FormGroup>
-        <FormGroup>
-          <Label for="description">Project Description</Label>
-          <Input type="textarea" name="description" id="description" onChange={onChange} />
-        </FormGroup>
-        <Button size="lg" block color="primary" type="submit" disabled={loading}>
-          {loading ? <Spinner color="light" /> : 'Submit'}
-        </Button>
-        <p className={classes.google}>
-          This site is protected by reCAPTCHA and the Google{' '}
-          <a target="_blank" rel="noreferrer" href="https://policies.google.com/privacy">
-            Privacy Policy
-          </a>{' '}
-          and{' '}
-          <a target="_blank" rel="noreferrer" href="https://policies.google.com/terms">
-            Terms of Service
-          </a>{' '}
-          apply.
-        </p>
-      </Form>
-    );
-  }, [
-    error,
-    formState.email,
-    formState.name,
-    formState.phoneNumber,
-    formState.projectAddress,
-    formState.projectType,
-    loading,
-    onChange,
-    onSubmit,
-    success,
-    classes.google,
-  ]);
-
   return (
     <div>
       <Head>
         <title>Contact Us | Sweeney Restoration</title>
         <meta property="og:title" content="Contact Us | Sweeney Restoration" key="title" />
         <meta name="robots" content="index,follow" />
-        <script src="https://www.google.com/recaptcha/api.js?render=6LcttdgZAAAAADqMr5udsQdCKWQies8zkPSiMZoi" />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://coconstruct.com/app/public/LeadIntake/LeadIntakeForm.css?348844444"
+        />
+        <script
+          type="text/javascript"
+          src="https://coconstruct.com/app/api/LeadsIntakeForm/GetLeadsIntakeFormSubmissionJs?AuthKey=ZkhY0jMzK2WXARK03VSJj4AbY7yoz%2b0yBUSU9vD0TO4%3d"
+        />
       </Head>
       <PageHead title="Contact Us" img="contact.jpg" />
       <Container>
         <Row>
           <Col md={8} className="mb-4">
-            {formUi}
+            {/* CoConstruct's intake form - just a direct copy */}
+            <div>
+              <div id="divCoCoForm">
+                <div className="coco-form-wrapper">
+                  <div className="cocon-row">
+                    <div>
+                      <label className="coco-label">Name</label>
+                    </div>
+                    <div className="cocon-name-inputs">
+                      <input
+                        id="txtCoCoFirstName"
+                        name="txtFirstName"
+                        type="text"
+                        className="coco-text-input"
+                        placeholder="First Name"
+                      />
+                      <input
+                        id="txtCoCoLastName"
+                        name="txtLastName"
+                        type="text"
+                        className="coco-text-input"
+                        placeholder="Last Name"
+                      />
+                    </div>
+                    <div
+                      id="divNameErrorBanner"
+                      className="coco-error-banner"
+                      style={{ display: 'none' }}
+                    >
+                      <div>Please enter your name</div>
+                    </div>
+                  </div>
+
+                  <div className="cocon-row">
+                    <div>
+                      <label className="coco-label">Email</label>
+                    </div>
+                    <div>
+                      <input id="txtCoCoEmail" type="text" className="coco-text-input" />
+                    </div>
+                    <div
+                      id="divEmailErrorBanner"
+                      className="coco-error-banner"
+                      style={{ display: 'none' }}
+                    >
+                      <div id="spnEmailError" />
+                    </div>
+                  </div>
+
+                  <div className="cocon-row">
+                    <div>
+                      <label className="coco-label">Phone</label>
+                    </div>
+                    <div>
+                      <input type="text" id="txtCoCoPhone" className="coco-text-input" />
+                    </div>
+                  </div>
+
+                  <div className="cocon-row">
+                    <div>
+                      <label className="coco-label">Message</label>
+                    </div>
+                    <div>
+                      <textarea
+                        id="txtCoCoMessage"
+                        type="text"
+                        className="coco-text-input"
+                        maxLength="1000"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="cocon-row">
+                    <input id="txtHPData" type="text" className="coco-h-p" autoComplete="off" />
+                  </div>
+
+                  <div className="cocon-row">
+                    <input
+                      type="button"
+                      id="btnLeadIntakeSubmit"
+                      className="cocon-button"
+                      value="Submit"
+                    />
+                    <div
+                      id="divGenericErrorBanner"
+                      className="coco-error-banner"
+                      style={{ display: 'none' }}
+                    >
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
+                      <span>This form can't be submitted. Try again later.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="divCoCoConfirmation" style={{ display: 'none' }}>
+                <div className="coco-confirmation-icon">
+                  <svg width="132" height="132" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M66 132A66 66 0 1 1 66 0a66 66 0 0 1 0 132zm0-2A64 64 0 1 0 66 2a64 64 0 0 0 0 128zm-9.9-45.5l39-38.9 1.3 1.5-40.3 40.3-19.5-19.6 1.4-1.4L56 84.5z"
+                      fill="currentColor"
+                      fillRule="nonzero"
+                    />
+                  </svg>
+                </div>
+                <span>Your message has been sent.</span>
+              </div>
+            </div>
           </Col>
           <Col md={4}>
             <Content title="Office Hours">
