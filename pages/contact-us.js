@@ -20,6 +20,7 @@ const Contact = () => {
           type="text/javascript"
           src="https://coconstruct.com/app/api/LeadsIntakeForm/GetLeadsIntakeFormSubmissionJs?AuthKey=ZkhY0jMzK2WXARK03VSJj4AbY7yoz%2b0yBUSU9vD0TO4%3d"
         />
+        <script type="text/javascript" src="scripts/fix.js" />
       </Head>
       <PageHead title="Contact Us" img="contact.jpg" />
       <Container>
