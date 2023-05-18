@@ -6,6 +6,9 @@ import Content from '../components/Content';
 import PageHead from '../components/PageHead';
 
 const useStyles = createUseStyles({
+  pic: {
+    maxWidth: '100%',
+  },
   video: {
     '& iframe': {
       '@media (max-width: 480px)': {
@@ -30,7 +33,8 @@ const Process = () => {
       <PageHead title="Our Process" img="our-process.jpg" />
       <Container>
         <Content title="Our Process">
-          <ol>
+          <img src="./process.jpg" alt="our process" className={classes.pic} />
+          {/* <ol>
             <li>Client Contact</li>
             <li>In Home Consultation</li>
             <li>Pre-Construction Services Agreement</li>
@@ -39,7 +43,7 @@ const Process = () => {
             <li>Contract</li>
             <li>Construction</li>
             <li>Completion and Project Sign Off</li>
-          </ol>
+          </ol> */}
         </Content>
         <Content title="Customer Communication">
           <Vimeo className={classes.video} video="447571522" height={600} />

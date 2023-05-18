@@ -15,15 +15,8 @@ const employees = [
     description:
       'Travis is the one leader that keeps all projects progressing on a daily basis. His extensive experience and strong work ethic gives him the ability to "juggle" many tasks while communicating with the clients and employees/subs. His main goal is to ensure that clients wishes and needs come through in the final product.',
     image: 'https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/travis-960w.jpg',
-    name: 'Will Alexander',
-    title: 'Estimating & Sales Manager',
-  },
-  {
-    description:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe tenetur, atque accusamus debitis eius a blanditiis aut. Non corrupti tenetur numquam totam expedita minus. Minus corrupti dolore necessitatibus reprehenderit nulla.',
-    image: 'https://lirp-cdn.multiscreensite.com/f4423934/dms3rep/multi/opt/travis-960w.jpg',
-    name: 'Charles (Buff) Colomb',
-    title: 'Production Manager',
+    name: 'Angele Dassel',
+    title: 'Selections Manager',
   },
 ];
 
