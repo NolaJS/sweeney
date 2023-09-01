@@ -20,6 +20,8 @@ export const projectEmail = ({
   phoneNumber,
   projectAddress,
   projectType,
+  projectPhase,
+  attachments
 }) => {
   const content = `
   <tr>
@@ -44,6 +46,11 @@ export const projectEmail = ({
   </tr>
   <tr>
     <td class="content-block">
+      Project Type: ${projectPhase}
+    </td>
+  </tr>
+  <tr>
+    <td class="content-block">
       Project Address: ${projectAddress}
     </td>
   </tr>
@@ -58,5 +65,6 @@ export const projectEmail = ({
     html: getLayout({ content, title: 'Sweeney Restoration - New Contact' }),
     subject: 'Sweeney Restoration - New Contact from Website',
     to: admins,
+    attachments
   };
 };
