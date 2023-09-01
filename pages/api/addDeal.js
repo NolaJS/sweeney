@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in, no-await-in-loop, no-restricted-syntax, no-console */
 import axios from 'axios';
 import path from 'path';
 import formidable from 'formidable';
@@ -14,7 +15,8 @@ export const config = {
 export default async (req, res) => {
   const proj = {};
   const form = formidable({});
-  let fields, files;
+  let fields;
+  let files;
 
   try {
     [fields, files] = await form.parse(req);
@@ -22,34 +24,24 @@ export default async (req, res) => {
     console.error('Error1: ', err);
   }
 
-  for (let key in fields) {
-    fields[key] = fields[key][0];
+  for (const key in fields) {
+    [fields[key]] = fields[key];
   }
 
-  for (let key in files) {
-    files[key] = files[key][0];
+  for (const key in files) {
+    [files[key]] = files[key];
   }
 
-  const {
-    firstname,
-    lastname,
-    email,
-    phone,
-    dealname,
-    phase,
-    type,
-    firm,
-    description,
-  } = fields;
+  const { dealname, description, email, firm, firstname, lastname, phase, phone, type } = fields;
 
   try {
     proj.deal = await axios.post(
       'https://api.hubapi.com/crm/v3/objects/deals',
       {
         properties: {
-          hubspot_owner_id: process.env.DEFAULT_OWNER,
           dealname,
           dealstage: '92486949',
+          hubspot_owner_id: process.env.DEFAULT_OWNER,
         },
       },
       {
@@ -57,7 +49,7 @@ export default async (req, res) => {
           Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
           'Content-Type': 'application/json',
         },
-      }
+      },
     );
     proj.deal = proj.deal.data;
   } catch (err) {
@@ -69,10 +61,10 @@ export default async (req, res) => {
       'https://api.hubapi.com/crm/v3/objects/contacts',
       {
         properties: {
-          hubspot_owner_id: process.env.DEFAULT_OWNER,
-          firstname,
-          lastname,
           email,
+          firstname,
+          hubspot_owner_id: process.env.DEFAULT_OWNER,
+          lastname,
           phone,
         },
       },
@@ -81,7 +73,7 @@ export default async (req, res) => {
           Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
           'Content-Type': 'application/json',
         },
-      }
+      },
     );
     proj.contact = proj.contact.data;
   } catch (err) {
@@ -97,8 +89,8 @@ export default async (req, res) => {
       `https://api.hubapi.com/crm/v4/objects/contact/${proj.contact.id}/associations/deal/${proj.deal.id}`,
       [
         {
-          associationTypeId: 4,
           associationCategory: 'HUBSPOT_DEFINED',
+          associationTypeId: 4,
         },
       ],
       {
@@ -106,7 +98,7 @@ export default async (req, res) => {
           Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
           'Content-Type': 'application/json',
         },
-      }
+      },
     );
   } catch (err) {
     console.error('Contact Association Error: ', err);
@@ -126,7 +118,7 @@ export default async (req, res) => {
             Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
             'Content-Type': 'application/json',
           },
-        }
+        },
       );
       proj.firm = proj.firm.data;
     } catch (err) {
@@ -138,8 +130,8 @@ export default async (req, res) => {
         `https://api.hubapi.com/crm/v4/objects/company/${proj.firm.id}/associations/deal/${proj.deal.id}`,
         [
           {
-            associationTypeId: 342,
             associationCategory: 'HUBSPOT_DEFINED',
+            associationTypeId: 342,
           },
         ],
         {
@@ -147,7 +139,7 @@ export default async (req, res) => {
             Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
             'Content-Type': 'application/json',
           },
-        }
+        },
       );
     } catch (err) {
       console.error('Firm Association Error: ', err);
@@ -166,7 +158,7 @@ export default async (req, res) => {
             Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
             'Content-Type': 'application/json',
           },
-        }
+        },
       );
       proj.folder = proj.folder.data;
     } catch (err) {
@@ -175,23 +167,20 @@ export default async (req, res) => {
 
     try {
       proj.files = [];
-      for (let key in files) {
+      for (const key in files) {
         let fileBlob = await new Promise((resolve, reject) => {
-          fs.readFile(
-            path.resolve(__dirname, files[key].filepath),
-            (err, data) => {
-              if (err) {
-                console.error(err);
-                reject(err);
-              } else {
-                resolve(data);
-              }
+          fs.readFile(path.resolve(__dirname, files[key].filepath), (err, data) => {
+            if (err) {
+              console.error(err);
+              reject(err);
+            } else {
+              resolve(data);
             }
-          );
+          });
         });
 
         fileBlob = new Blob([fileBlob], { type: files[key].mimetype });
-        let tempForm = new FormData();
+        const tempForm = new FormData();
         tempForm.append('file', fileBlob, {
           filename: files[key].originalFilename,
         });
@@ -199,16 +188,12 @@ export default async (req, res) => {
         tempForm.append('fileName', files[key].originalFilename);
         tempForm.append('options', JSON.stringify({ access: 'PRIVATE' }));
 
-        let temp = await axios.post(
-          'https://api.hubapi.com/files/v3/files',
-          tempForm,
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
+        const temp = await axios.post('https://api.hubapi.com/files/v3/files', tempForm, {
+          headers: {
+            Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
         proj.files.push(temp.data);
       }
     } catch (err) {
@@ -220,12 +205,6 @@ export default async (req, res) => {
         'https://api.hubapi.com/crm/v3/objects/notes/batch/create',
         {
           inputs: proj.files.map((f) => ({
-            properties: {
-              hubspot_owner_id: process.env.DEFAULT_OWNER,
-              hs_timestamp: Date.now(),
-              hs_note_body: f.id,
-              hs_attachment_ids: f.id,
-            },
             associations: [
               {
                 to: {
@@ -239,6 +218,12 @@ export default async (req, res) => {
                 ],
               },
             ],
+            properties: {
+              hs_attachment_ids: f.id,
+              hs_note_body: f.id,
+              hs_timestamp: Date.now(),
+              hubspot_owner_id: process.env.DEFAULT_OWNER,
+            },
           })),
         },
         {
@@ -246,23 +231,18 @@ export default async (req, res) => {
             Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
             'Content-Type': 'application/json',
           },
-        }
+        },
       );
     } catch (err) {
       console.error('Note Error: ', err);
     }
   }
-  
-  const name = firstname.concat(' ', lastname);
-  const [phoneNumber, projectAddress, projectType, projectPhase] = [
-    phone,
-    dealname,
-    type,
-    phase,
-  ];
-  let attachments = [];
 
-  for (let key in files) {
+  const name = firstname.concat(' ', lastname);
+  const [phoneNumber, projectAddress, projectType, projectPhase] = [phone, dealname, type, phase];
+  const attachments = [];
+
+  for (const key in files) {
     attachments.push({
       filename: files[key].originalFilename,
       path: path.resolve(__dirname, files[key].filepath),
@@ -271,19 +251,19 @@ export default async (req, res) => {
 
   const contactEmailOpts = contactEmail(email);
   const msgOpts = projectEmail({
+    attachments,
     description,
     email,
     name,
     phoneNumber,
     projectAddress,
-    projectType,
     projectPhase,
-    attachments,
+    projectType,
   });
   await sendEmail(contactEmailOpts);
   await sendEmail(msgOpts);
 
-  for (let key in files) {
+  for (const key in files) {
     const filePath = path.resolve(__dirname, files[key].filepath);
     fs.unlink(filePath, (err) => {
       if (err) {

@@ -1,6 +1,6 @@
 import transport from './transport';
 
-const sendEmail = options =>
+const sendEmail = (options) =>
   new Promise((resolve, reject) =>
     transport.sendMail(options, (err, info) => {
       if (err) {
