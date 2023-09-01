@@ -119,12 +119,7 @@ const Contact = () => {
           <Col md={8} className='mb-4'>
             <Row>
               <Col>
-                <label className='hub-label'>
-                  Name
-                  <span id='name-required' className='asterisk'>
-                    *
-                  </span>
-                </label>
+                <label className='hub-label'>Name*</label>
               </Col>
             </Row>
             <Row>
@@ -169,20 +164,10 @@ const Contact = () => {
             </Row>
             <Row className='label-section'>
               <Col>
-                <label className='hub-label'>
-                  Email
-                  <span id='Email-required' className='asterisk'>
-                    *
-                  </span>
-                </label>
+                <label className='hub-label'>Email*</label>
               </Col>
               <Col>
-                <label className='hub-label'>
-                  Phone
-                  <span id='Phone-required' className='asterisk'>
-                    *
-                  </span>
-                </label>
+                <label className='hub-label'>Phone*</label>
               </Col>
             </Row>
             <Row>
@@ -223,20 +208,10 @@ const Contact = () => {
             </Row>
             <Row className='label-section'>
               <Col>
-                <label className='hub-label'>
-                  Project Phase
-                  <span id='phase-required' className='asterisk'>
-                    *
-                  </span>
-                </label>
+                <label className='hub-label'>Project Phase*</label>
               </Col>
               <Col>
-                <label className='hub-label'>
-                  Project Type
-                  <span id='pType-required' className='asterisk'>
-                    *
-                  </span>
-                </label>
+                <label className='hub-label'>Project Type*</label>
               </Col>
             </Row>
             <Row>
@@ -323,12 +298,7 @@ const Contact = () => {
             </Row>
             <Row className='label-section'>
               <Col>
-                <label className='hub-label'>
-                  Project Address
-                  <span id='pAddr-required' className='asterisk'>
-                    *
-                  </span>
-                </label>
+                <label className='hub-label'>Project Address*</label>
               </Col>
               <Col>
                 <label className='hub-label'>Architecture Firm</label>
@@ -363,12 +333,7 @@ const Contact = () => {
             </Row>
             <Row className='label-section'>
               <Col>
-                <label className='hub-label'>
-                  Project Description
-                  <span id='descr-required' className='asterisk'>
-                    *
-                  </span>
-                </label>
+                <label className='hub-label'>Project Description*</label>
               </Col>
             </Row>
             <Row>
