@@ -42,7 +42,7 @@ const Home = () => {
         <h1 className="display-3">Sweeney Restoration</h1>
         <p className="display-4">Build It Right</p>
         <p className="lead">
-          <Link href="/contact-us">
+          <Link legacyBehavior href="/contact-us">
             <Button color="primary">Request a Quote</Button>
           </Link>
         </p>

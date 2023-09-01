@@ -85,10 +85,10 @@ const Header = () => {
           classes.topBar,
         )}
       >
-        <Link href="/contact-us">
+        <Link legacyBehavior href="/contact-us">
           <a>Request a Quote</a>
         </Link>
-        <Link href="/customer-login">
+        <Link legacyBehavior href="/customer-login">
           <a>Customer Login</a>
         </Link>
         <a
@@ -125,7 +125,7 @@ const Header = () => {
           <Nav className={classnames('ml-auto', classes.mainNav)} navbar>
             {links.map(l => (
               <NavItem key={l.to}>
-                <Link href={l.to} passHref>
+                <Link legacyBehavior href={l.to} passHref>
                   <NavLink active={l.to === router.pathname}>{l.label}</NavLink>
                 </Link>
               </NavItem>
