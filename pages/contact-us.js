@@ -405,7 +405,7 @@ const Contact = () => {
               </Col>
               <Col>
                 <ReCAPTCHA
-                  sitekey='6LeJme8nAAAAABgKna5AcQXzHEzR4_cLc2cajgNa'
+                  sitekey='6LfeWvAnAAAAAB5OsAVVPNK6-30UuBi4hoL2PNRR'
                   ref={reCap}
                   onChange={verify}
                   id='reCAPTCHA'
