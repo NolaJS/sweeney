@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-associated-control, no-param-reassign, no-restricted-syntax */
 import Head from 'next/head';
 import axios from 'axios';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -37,23 +37,22 @@ const Contact = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     let verified = true;
     const tempRefs = {
-      fName,
-      lName,
       Email,
       Phone,
       descr,
+      fName,
+      lName,
       pAddr,
       pType,
       phase,
     };
-    for (let key in tempRefs) {
+    for (const key in tempRefs) {
       if (tempRefs[key].current.matches(':invalid')) {
         verified = false;
-        document.getElementById(`${key}-error-banner`).style.display =
-          'inherit';
+        document.getElementById(`${key}-error-banner`).style.display = 'inherit';
       } else {
         document.getElementById(`${key}-error-banner`).style.display = 'none';
       }
@@ -85,20 +84,20 @@ const Contact = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      Array.from(document.getElementsByTagName('input')).forEach(
-        (e) => (e.value = '')
-      );
-      Array.from(document.getElementsByTagName('textarea')).forEach(
-        (e) => (e.value = '')
-      );
-      Array.from(document.getElementsByTagName('select')).forEach(
-        (e) => (e.value = '')
-      );
+      Array.from(document.getElementsByTagName('input')).forEach((r) => {
+        r.value = '';
+      });
+      Array.from(document.getElementsByTagName('textarea')).forEach((f) => {
+        f.value = '';
+      });
+      Array.from(document.getElementsByTagName('select')).forEach((g) => {
+        g.value = '';
+      });
       document.getElementById('divHubConfirmation').style.display = 'inherit';
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error:', error);
-      document.getElementById('divGenericErrorBanner').style.display =
-        'inherit';
+      document.getElementById('divGenericErrorBanner').style.display = 'inherit';
     }
   };
 
@@ -106,36 +105,32 @@ const Contact = () => {
     <div>
       <Head>
         <title>Contact Us | Sweeney Restoration</title>
-        <meta
-          property='og:title'
-          content='Contact Us | Sweeney Restoration'
-          key='title'
-        />
-        <script type='text/javascript' src='scripts/fix.js' />
+        <meta property="og:title" content="Contact Us | Sweeney Restoration" key="title" />
+        <script type="text/javascript" src="scripts/fix.js" />
       </Head>
-      <PageHead title='Contact Us' img='contact.jpg' />
+      <PageHead title="Contact Us" img="contact.jpg" />
       <Container>
         <Row>
-          <Col md={8} className='mb-4'>
+          <Col md={8} className="mb-4">
             <Row>
               <Col>
-                <label className='hub-label'>Name*</label>
+                <label className="hub-label">Name*</label>
               </Col>
             </Row>
             <Row>
               <Col>
                 <input
                   required
-                  id='fName'
-                  name='fName'
-                  type='text'
-                  className='hub-text-input'
-                  placeholder='First Name'
+                  id="fName"
+                  name="fName"
+                  type="text"
+                  className="hub-text-input"
+                  placeholder="First Name"
                   ref={fName}
                 />
                 <div
-                  id='fName-error-banner'
-                  className='hub-error-banner'
+                  id="fName-error-banner"
+                  className="hub-error-banner"
                   style={{ display: 'none' }}
                 >
                   {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -145,16 +140,16 @@ const Contact = () => {
               <Col>
                 <input
                   required
-                  id='lName'
-                  name='lName'
-                  type='text'
-                  className='hub-text-input'
-                  placeholder='Last Name'
+                  id="lName"
+                  name="lName"
+                  type="text"
+                  className="hub-text-input"
+                  placeholder="Last Name"
                   ref={lName}
                 />
                 <div
-                  id='lName-error-banner'
-                  className='hub-error-banner'
+                  id="lName-error-banner"
+                  className="hub-error-banner"
                   style={{ display: 'none' }}
                 >
                   {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -162,26 +157,20 @@ const Contact = () => {
                 </div>
               </Col>
             </Row>
-            <Row className='label-section'>
+            <Row className="label-section">
               <Col>
-                <label className='hub-label'>Email*</label>
+                <label className="hub-label">Email*</label>
               </Col>
               <Col>
-                <label className='hub-label'>Phone*</label>
+                <label className="hub-label">Phone*</label>
               </Col>
             </Row>
             <Row>
               <Col>
-                <input
-                  required
-                  id='Email'
-                  type='email'
-                  className='hub-text-input'
-                  ref={Email}
-                />
+                <input required id="Email" type="email" className="hub-text-input" ref={Email} />
                 <div
-                  id='Email-error-banner'
-                  className='hub-error-banner'
+                  id="Email-error-banner"
+                  className="hub-error-banner"
                   style={{ display: 'none' }}
                 >
                   {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -189,16 +178,10 @@ const Contact = () => {
                 </div>
               </Col>
               <Col>
-                <input
-                  required
-                  type='tel'
-                  id='Phone'
-                  className='hub-text-input'
-                  ref={Phone}
-                />
+                <input required type="tel" id="Phone" className="hub-text-input" ref={Phone} />
                 <div
-                  id='Phone-error-banner'
-                  className='hub-error-banner'
+                  id="Phone-error-banner"
+                  className="hub-error-banner"
                   style={{ display: 'none' }}
                 >
                   {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -206,49 +189,43 @@ const Contact = () => {
                 </div>
               </Col>
             </Row>
-            <Row className='label-section'>
+            <Row className="label-section">
               <Col>
-                <label className='hub-label'>Project Phase*</label>
+                <label className="hub-label">Project Phase*</label>
               </Col>
               <Col>
-                <label className='hub-label'>Project Type*</label>
+                <label className="hub-label">Project Type*</label>
               </Col>
             </Row>
             <Row>
               <Col>
                 <select
-                  className='form-input form-select hub-text-input'
-                  name='phase'
-                  id='phase'
+                  className="form-input form-select hub-text-input"
+                  name="phase"
+                  id="phase"
                   ref={phase}
                   required
                 >
-                  <option className='select-option select-default' value=''>
+                  <option className="select-option select-default" value="">
                     {' '}
                     -- Select Phase --{' '}
                   </option>
-                  <option className='select-option' value='Idea/Design'>
+                  <option className="select-option" value="Idea/Design">
                     Idea/Design
                   </option>
-                  <option
-                    className='select-option'
-                    value='Architecture in Process'
-                  >
+                  <option className="select-option" value="Architecture in Process">
                     Architecture in Process
                   </option>
-                  <option
-                    className='select-option'
-                    value='Building Plans Complete'
-                  >
+                  <option className="select-option" value="Building Plans Complete">
                     Building Plans Complete
                   </option>
-                  <option className='select-option' value='Other'>
+                  <option className="select-option" value="Other">
                     Other
                   </option>
                 </select>
                 <div
-                  id='phase-error-banner'
-                  className='hub-error-banner'
+                  id="phase-error-banner"
+                  className="hub-error-banner"
                   style={{ display: 'none' }}
                 >
                   {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -257,38 +234,38 @@ const Contact = () => {
               </Col>
               <Col>
                 <select
-                  className='form-input form-select hub-text-input'
-                  name='pType'
-                  id='pType'
+                  className="form-input form-select hub-text-input"
+                  name="pType"
+                  id="pType"
                   ref={pType}
                   required
                 >
-                  <option className='select-option select-default' value=''>
+                  <option className="select-option select-default" value="">
                     {' '}
                     -- Select Type --{' '}
                   </option>
-                  <option className='select-option' value='New Construction'>
+                  <option className="select-option" value="New Construction">
                     New Construction
                   </option>
-                  <option className='select-option' value='Complete Renovation'>
+                  <option className="select-option" value="Complete Renovation">
                     Complete Renovation
                   </option>
-                  <option className='select-option' value='Partial Renovation'>
+                  <option className="select-option" value="Partial Renovation">
                     Partial Renovation
                   </option>
-                  <option className='select-option' value='Addition'>
+                  <option className="select-option" value="Addition">
                     Addition
                   </option>
-                  <option className='select-option' value='Commercial'>
+                  <option className="select-option" value="Commercial">
                     Commercial
                   </option>
-                  <option className='select-option' value='Other'>
+                  <option className="select-option" value="Other">
                     Other
                   </option>
                 </select>
                 <div
-                  id='pType-error-banner'
-                  className='hub-error-banner'
+                  id="pType-error-banner"
+                  className="hub-error-banner"
                   style={{ display: 'none' }}
                 >
                   {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -296,26 +273,20 @@ const Contact = () => {
                 </div>
               </Col>
             </Row>
-            <Row className='label-section'>
+            <Row className="label-section">
               <Col>
-                <label className='hub-label'>Project Address*</label>
+                <label className="hub-label">Project Address*</label>
               </Col>
               <Col>
-                <label className='hub-label'>Architecture Firm</label>
+                <label className="hub-label">Architecture Firm</label>
               </Col>
             </Row>
             <Row>
               <Col>
-                <input
-                  required
-                  type='text'
-                  id='pAddr'
-                  className='hub-text-input'
-                  ref={pAddr}
-                />
+                <input required type="text" id="pAddr" className="hub-text-input" ref={pAddr} />
                 <div
-                  id='pAddr-error-banner'
-                  className='hub-error-banner'
+                  id="pAddr-error-banner"
+                  className="hub-error-banner"
                   style={{ display: 'none' }}
                 >
                   {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -323,32 +294,27 @@ const Contact = () => {
                 </div>
               </Col>
               <Col>
-                <input
-                  type='text'
-                  id='firmN'
-                  className='hub-text-input'
-                  ref={firmN}
-                />
+                <input type="text" id="firmN" className="hub-text-input" ref={firmN} />
               </Col>
             </Row>
-            <Row className='label-section'>
+            <Row className="label-section">
               <Col>
-                <label className='hub-label'>Project Description*</label>
+                <label className="hub-label">Project Description*</label>
               </Col>
             </Row>
             <Row>
               <Col>
                 <textarea
                   required
-                  id='descr'
-                  type='text'
-                  className='hub-text-input'
-                  maxLength='1000'
+                  id="descr"
+                  type="text"
+                  className="hub-text-input"
+                  maxLength="1000"
                   ref={descr}
                 />
                 <div
-                  id='descr-error-banner'
-                  className='hub-error-banner'
+                  id="descr-error-banner"
+                  className="hub-error-banner"
                   style={{ display: 'none' }}
                 >
                   {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -356,25 +322,25 @@ const Contact = () => {
                 </div>
               </Col>
             </Row>
-            <Row className='label-section'>
+            <Row className="label-section">
               <Col>
-                <label className='hub-label'>Project Files</label>
+                <label className="hub-label">Project Files</label>
               </Col>
             </Row>
             <Row>
               <Col>
                 <input
-                  name='file'
-                  className='hub-text-input file-input'
-                  id='pPlans'
-                  type='file'
-                  accept='.xlsx,.xls,image/*,.doc,.docx,.ppt,.pptx,.txt,.pdf,.rtf'
+                  name="file"
+                  className="hub-text-input file-input"
+                  id="pPlans"
+                  type="file"
+                  accept=".xlsx,.xls,image/*,.doc,.docx,.ppt,.pptx,.txt,.pdf,.rtf"
                   multiple
                   onInput={(e) => {
                     if (Array.from(e.target.files).length) {
                       const temp = new FormData();
                       Array.from(e.target.files).forEach((f, i) =>
-                        temp.append(`file-${i}`, f, f.name)
+                        temp.append(`file-${i}`, f, f.name),
                       );
                       setFiles(temp);
                     } else {
@@ -384,19 +350,19 @@ const Contact = () => {
                 />
               </Col>
             </Row>
-            <Row className='input-row'>
+            <Row className="input-row">
               <Col>
                 <input
                   disabled={reCapVer}
-                  type='button'
-                  id='btnLeadIntakeSubmit'
-                  className='hub-button'
-                  value='Submit'
+                  type="button"
+                  id="btnLeadIntakeSubmit"
+                  className="hub-button"
+                  value="Submit"
                   onClick={handleSubmit}
                 />
                 <div
-                  id='divGenericErrorBanner'
-                  className='hub-error-banner'
+                  id="divGenericErrorBanner"
+                  className="hub-error-banner"
                   style={{ display: 'none' }}
                 >
                   {/* eslint-disable-next-line react/no-unescaped-entities */}
@@ -405,24 +371,20 @@ const Contact = () => {
               </Col>
               <Col>
                 <ReCAPTCHA
-                  sitekey='6LfeWvAnAAAAAB5OsAVVPNK6-30UuBi4hoL2PNRR'
+                  sitekey="6LfeWvAnAAAAAB5OsAVVPNK6-30UuBi4hoL2PNRR"
                   ref={reCap}
                   onChange={verify}
-                  id='reCAPTCHA'
+                  id="reCAPTCHA"
                 />
               </Col>
             </Row>
-            <div id='divHubConfirmation' style={{ display: 'none' }}>
-              <div className='hub-confirmation-icon'>
-                <svg
-                  width='132'
-                  height='132'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
+            <div id="divHubConfirmation" style={{ display: 'none' }}>
+              <div className="hub-confirmation-icon">
+                <svg width="132" height="132" xmlns="http://www.w3.org/2000/svg">
                   <path
-                    d='M66 132A66 66 0 1 1 66 0a66 66 0 0 1 0 132zm0-2A64 64 0 1 0 66 2a64 64 0 0 0 0 128zm-9.9-45.5l39-38.9 1.3 1.5-40.3 40.3-19.5-19.6 1.4-1.4L56 84.5z'
-                    fill='currentColor'
-                    fillRule='nonzero'
+                    d="M66 132A66 66 0 1 1 66 0a66 66 0 0 1 0 132zm0-2A64 64 0 1 0 66 2a64 64 0 0 0 0 128zm-9.9-45.5l39-38.9 1.3 1.5-40.3 40.3-19.5-19.6 1.4-1.4L56 84.5z"
+                    fill="currentColor"
+                    fillRule="nonzero"
                   />
                 </svg>
               </div>
@@ -430,27 +392,25 @@ const Contact = () => {
             </div>
           </Col>
           <Col md={4}>
-            <Content title='Office Hours'>
-              <p className='m-0'>Monday 7:30AM - 4:30PM</p>
-              <p className='m-0'>Tuesday 7:30AM - 4:30PM</p>
-              <p className='m-0'>Wednesday 7:30AM - 4:30PM</p>
-              <p className='m-0'>Thursday 7:30AM - 4:30PM</p>
-              <p className='m-0'>Friday 7:30AM - 4:30PM</p>
-              <p className='m-0'>Saturday CLOSED</p>
-              <p className='m-0'>Sunday CLOSED</p>
+            <Content title="Office Hours">
+              <p className="m-0">Monday 7:30AM - 4:30PM</p>
+              <p className="m-0">Tuesday 7:30AM - 4:30PM</p>
+              <p className="m-0">Wednesday 7:30AM - 4:30PM</p>
+              <p className="m-0">Thursday 7:30AM - 4:30PM</p>
+              <p className="m-0">Friday 7:30AM - 4:30PM</p>
+              <p className="m-0">Saturday CLOSED</p>
+              <p className="m-0">Sunday CLOSED</p>
             </Content>
-            <div className='mt-4'>
-              <Content title='General Information'>
-                <p className='m-0'>4333 Washington Ave.</p>
-                <p className='m-0'>New Orleans, LA 70125</p>
-                <p className='m-0'>
-                  Phone: <a href='tel:504-533-0007'>504-533-0007</a>
+            <div className="mt-4">
+              <Content title="General Information">
+                <p className="m-0">4333 Washington Ave.</p>
+                <p className="m-0">New Orleans, LA 70125</p>
+                <p className="m-0">
+                  Phone: <a href="tel:504-533-0007">504-533-0007</a>
                 </p>
-                <p className='m-0'>
+                <p className="m-0">
                   Email:{' '}
-                  <a href='mailto:info@sweeneyrestoration.com'>
-                    info@sweeneyrestoration.com
-                  </a>
+                  <a href="mailto:info@sweeneyrestoration.com">info@sweeneyrestoration.com</a>
                 </p>
               </Content>
             </div>
