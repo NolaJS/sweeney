@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control, no-param-reassign, no-restricted-syntax */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import Head from 'next/head';
 import axios from 'axios';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -49,14 +49,16 @@ const Contact = () => {
       pType,
       phase,
     };
-    for (const key in tempRefs) {
-      if (tempRefs[key].current.matches(':invalid')) {
+
+    Object.entries(tempRefs).forEach((data) => {
+      if (data[1].current.matches(':invalid')) {
         verified = false;
-        document.getElementById(`${key}-error-banner`).style.display = 'inherit';
+        document.getElementById(`${data[0]}-error-banner`).style.display = 'inherit';
       } else {
-        document.getElementById(`${key}-error-banner`).style.display = 'none';
+        document.getElementById(`${data[0]}-error-banner`).style.display = 'none';
       }
-    }
+    });
+
     if (!verified) {
       return;
     }
@@ -73,8 +75,9 @@ const Contact = () => {
     formData.append('description', descr.current.value);
 
     if (files) {
-      for (const key of files.keys()) {
-        formData.append(key, files.get(key));
+      const tempArr = Array.from(files.keys());
+      for (let i = 0; i < tempArr.length; i += 1) {
+        formData.append(tempArr[i], files.get(tempArr[i]));
       }
     }
 
@@ -84,16 +87,21 @@ const Contact = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
+
       Array.from(document.getElementsByTagName('input')).forEach((r) => {
-        r.value = '';
+        const m = r;
+        m.value = '';
       });
       Array.from(document.getElementsByTagName('textarea')).forEach((f) => {
-        f.value = '';
+        const q = f;
+        q.value = '';
       });
       Array.from(document.getElementsByTagName('select')).forEach((g) => {
-        g.value = '';
+        const y = g;
+        y.value = '';
       });
       document.getElementById('divHubConfirmation').style.display = 'inherit';
+      document.getElementById('divGenericErrorBanner').style.display = 'none';
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error:', error);

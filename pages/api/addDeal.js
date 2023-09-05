@@ -1,4 +1,4 @@
-/* eslint-disable guard-for-in, no-await-in-loop, no-restricted-syntax, no-console */
+/* eslint-disable no-console, no-param-reassign, no-await-in-loop */
 import axios from 'axios';
 import path from 'path';
 import formidable from 'formidable';
@@ -24,13 +24,13 @@ export default async (req, res) => {
     console.error('Error1: ', err);
   }
 
-  for (const key in fields) {
+  Object.keys(fields).forEach((key) => {
     [fields[key]] = fields[key];
-  }
+  });
 
-  for (const key in files) {
+  Object.keys(files).forEach((key) => {
     [files[key]] = files[key];
-  }
+  });
 
   const { dealname, description, email, firm, firstname, lastname, phase, phone, type } = fields;
 
@@ -167,6 +167,7 @@ export default async (req, res) => {
 
     try {
       proj.files = [];
+      /* eslint-disable-next-line guard-for-in, no-restricted-syntax */
       for (const key in files) {
         let fileBlob = await new Promise((resolve, reject) => {
           fs.readFile(path.resolve(__dirname, files[key].filepath), (err, data) => {
@@ -178,8 +179,8 @@ export default async (req, res) => {
             }
           });
         });
-
         fileBlob = new Blob([fileBlob], { type: files[key].mimetype });
+
         const tempForm = new FormData();
         tempForm.append('file', fileBlob, {
           filename: files[key].originalFilename,
@@ -220,7 +221,7 @@ export default async (req, res) => {
             ],
             properties: {
               hs_attachment_ids: f.id,
-              hs_note_body: f.id,
+              hs_note_body: f.name,
               hs_timestamp: Date.now(),
               hubspot_owner_id: process.env.DEFAULT_OWNER,
             },
@@ -242,12 +243,12 @@ export default async (req, res) => {
   const [phoneNumber, projectAddress, projectType, projectPhase] = [phone, dealname, type, phase];
   const attachments = [];
 
-  for (const key in files) {
+  Object.values(files).forEach((fi) => {
     attachments.push({
-      filename: files[key].originalFilename,
-      path: path.resolve(__dirname, files[key].filepath),
+      filename: fi.originalFilename,
+      path: path.resolve(__dirname, fi.filepath),
     });
-  }
+  });
 
   const contactEmailOpts = contactEmail(email);
   const msgOpts = projectEmail({
@@ -263,14 +264,14 @@ export default async (req, res) => {
   await sendEmail(contactEmailOpts);
   await sendEmail(msgOpts);
 
-  for (const key in files) {
-    const filePath = path.resolve(__dirname, files[key].filepath);
+  Object.values(files).forEach((f) => {
+    const filePath = path.resolve(__dirname, f.filepath);
     fs.unlink(filePath, (err) => {
       if (err) {
         console.error('Error deleting file: ', err);
       }
     });
-  }
+  });
 
   res.status(200).send('Completed');
 };
