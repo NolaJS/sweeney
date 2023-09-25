@@ -5,7 +5,7 @@ import Content from '../components/Content';
 import Carousel from '../components/Carousel';
 import picBuckets from '../utils/output.json';
 
-const Portfolio = () => {
+function Portfolio() {
   return (
     <div>
       <Head>
@@ -15,7 +15,7 @@ const Portfolio = () => {
       </Head>
       <PageHead title="Portfolio" img="portfolio.jpg" />
       <Container>
-        {picBuckets.map(p => (
+        {picBuckets.map((p) => (
           <Content key={p.name} title={p.name.split('-')[1]}>
             <Carousel items={p.pics} />
           </Content>
@@ -23,6 +23,6 @@ const Portfolio = () => {
       </Container>
     </div>
   );
-};
+}
 
 export default Portfolio;

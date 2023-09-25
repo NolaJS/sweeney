@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faYelp, faTwitter, faInstagram } from '@fortawesome/fontawesome-free-brands';
 import classnames from 'classnames';
 
-const useStyles = createUseStyles(theme => ({
+const useStyles = createUseStyles((theme) => ({
   mainNav: {
     '& > .nav-item > .nav-link': {
       '@media (max-width: 480px)': {
@@ -65,7 +65,7 @@ const links = [
   { label: 'Contact Us', to: '/contact-us' },
 ];
 
-const Header = () => {
+function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const theme = useTheme();
   const classes = useStyles({ theme });
@@ -123,7 +123,7 @@ const Header = () => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className={classnames('ml-auto', classes.mainNav)} navbar>
-            {links.map(l => (
+            {links.map((l) => (
               <NavItem key={l.to}>
                 <Link legacyBehavior href={l.to} passHref>
                   <NavLink active={l.to === router.pathname}>{l.label}</NavLink>
@@ -135,6 +135,6 @@ const Header = () => {
       </Navbar>
     </>
   );
-};
+}
 
 export default Header;

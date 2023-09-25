@@ -24,7 +24,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const Process = () => {
+function Process() {
   const [open, setOpen] = useState(false);
   const classes = useStyles();
   return (
@@ -64,6 +64,6 @@ const Process = () => {
       </Container>
     </div>
   );
-};
+}
 
 export default Process;

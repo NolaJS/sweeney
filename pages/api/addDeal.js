@@ -1,8 +1,6 @@
 /* eslint-disable guard-for-in, no-await-in-loop, no-restricted-syntax, no-console */
-import axios from 'axios';
-import path from 'path';
 import formidable from 'formidable';
-import fs from 'fs';
+import axios from 'axios';
 import sendEmail from '../../email/sendEmail';
 import { contactEmail, projectEmail } from '../../email/templates';
 
@@ -12,34 +10,53 @@ export const config = {
   },
 };
 
-export default async (req, res) => {
-  const proj = {};
-  const form = formidable({});
+const addDeal = async (req, res) => {
+  const form = formidable({ multiples: true });
+  console.log('trying this');
   let fields;
   let files;
-
+  const project = {};
   try {
     [fields, files] = await form.parse(req);
-  } catch (err) {
-    console.error('Error1: ', err);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
+    return;
   }
-
-  for (const key in fields) {
-    [fields[key]] = fields[key];
-  }
-
-  for (const key in files) {
-    [files[key]] = files[key];
-  }
-
-  const { dealname, description, email, firm, firstname, lastname, phase, phone, type } = fields;
-
+  const {
+    address,
+    description,
+    email,
+    firm,
+    firstName,
+    lastName,
+    phone,
+    projectPhase,
+    projectType,
+    token,
+  } = fields;
+  let recaptchaData;
   try {
-    proj.deal = await axios.post(
+    recaptchaData = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      body: `secret=${process.env.RECAPTCHA_KEY}&response=${token}`,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      method: 'POST',
+    }).then((resp) => resp.json());
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
+    return;
+  }
+  if (!recaptchaData.success && recaptchaData.score < 0.5) {
+    res.status(400).send('Bot detected');
+    return;
+  }
+  try {
+    const deal = await axios.post(
       'https://api.hubapi.com/crm/v3/objects/deals',
       {
         properties: {
-          dealname,
+          dealname: address,
           dealstage: '92486949',
           hubspot_owner_id: process.env.DEFAULT_OWNER,
         },
@@ -51,20 +68,20 @@ export default async (req, res) => {
         },
       },
     );
-    proj.deal = proj.deal.data;
+    project.deal = deal.data;
   } catch (err) {
     console.error('Deal Error: ', err);
   }
 
   try {
-    proj.contact = await axios.post(
+    const contact = await axios.post(
       'https://api.hubapi.com/crm/v3/objects/contacts',
       {
         properties: {
           email,
-          firstname,
+          firstname: firstName,
           hubspot_owner_id: process.env.DEFAULT_OWNER,
-          lastname,
+          lastname: lastName,
           phone,
         },
       },
@@ -75,10 +92,10 @@ export default async (req, res) => {
         },
       },
     );
-    proj.contact = proj.contact.data;
+    project.contact = contact.data;
   } catch (err) {
     if (err.response.status === 409) {
-      proj.contact = { id: err.response.data.message.replace(/\D/g, '') };
+      project.contact = { id: err.response.data.message.replace(/\D/g, '') };
     } else {
       console.error('Contact Error: ', err);
     }
@@ -86,7 +103,7 @@ export default async (req, res) => {
 
   try {
     await axios.put(
-      `https://api.hubapi.com/crm/v4/objects/contact/${proj.contact.id}/associations/deal/${proj.deal.id}`,
+      `https://api.hubapi.com/crm/v4/objects/contact/${project.contact.id}/associations/deal/${project.deal.id}`,
       [
         {
           associationCategory: 'HUBSPOT_DEFINED',
@@ -106,7 +123,7 @@ export default async (req, res) => {
 
   if (firm) {
     try {
-      proj.firm = await axios.post(
+      const company = await axios.post(
         'https://api.hubapi.com/crm/v3/objects/companies',
         {
           properties: {
@@ -120,38 +137,37 @@ export default async (req, res) => {
           },
         },
       );
-      proj.firm = proj.firm.data;
+      project.firm = company.data;
     } catch (err) {
       console.error('Firm Error: ', err);
     }
-
-    try {
-      await axios.put(
-        `https://api.hubapi.com/crm/v4/objects/company/${proj.firm.id}/associations/deal/${proj.deal.id}`,
-        [
-          {
-            associationCategory: 'HUBSPOT_DEFINED',
-            associationTypeId: 342,
-          },
-        ],
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-    } catch (err) {
-      console.error('Firm Association Error: ', err);
-    }
   }
 
+  try {
+    await axios.put(
+      `https://api.hubapi.com/crm/v4/objects/company/${project.firm.id}/associations/deal/${project.deal.id}`,
+      [
+        {
+          associationCategory: 'HUBSPOT_DEFINED',
+          associationTypeId: 342,
+        },
+      ],
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+  } catch (err) {
+    console.error('Firm Association Error: ', err);
+  }
   if (files) {
     try {
-      proj.folder = await axios.post(
+      const folder = await axios.post(
         'https://api.hubapi.com/files/v3/folders',
         {
-          name: dealname,
+          name: address,
         },
         {
           headers: {
@@ -160,32 +176,21 @@ export default async (req, res) => {
           },
         },
       );
-      proj.folder = proj.folder.data;
+      project.folder = folder.data;
     } catch (err) {
       console.error('Folder Error: ', err);
     }
 
+    const attachmentFiles = [];
     try {
-      proj.files = [];
-      for (const key in files) {
-        let fileBlob = await new Promise((resolve, reject) => {
-          fs.readFile(path.resolve(__dirname, files[key].filepath), (err, data) => {
-            if (err) {
-              console.error(err);
-              reject(err);
-            } else {
-              resolve(data);
-            }
-          });
-        });
-
-        fileBlob = new Blob([fileBlob], { type: files[key].mimetype });
+      for (const key in attachmentFiles) {
+        const currFile = attachmentFiles[key];
         const tempForm = new FormData();
-        tempForm.append('file', fileBlob, {
-          filename: files[key].originalFilename,
+        tempForm.append('file', currFile, {
+          filename: attachmentFiles[key].originalFilename,
         });
-        tempForm.append('folderId', proj.folder.id);
-        tempForm.append('fileName', files[key].originalFilename);
+        tempForm.append('folderId', project.folder.id);
+        tempForm.append('fileName', attachmentFiles[key].originalFilename);
         tempForm.append('options', JSON.stringify({ access: 'PRIVATE' }));
 
         const temp = await axios.post('https://api.hubapi.com/files/v3/files', tempForm, {
@@ -194,7 +199,7 @@ export default async (req, res) => {
             'Content-Type': 'multipart/form-data',
           },
         });
-        proj.files.push(temp.data);
+        attachmentFiles.push(temp.data);
       }
     } catch (err) {
       console.error('File Error: ', err);
@@ -204,11 +209,11 @@ export default async (req, res) => {
       await axios.post(
         'https://api.hubapi.com/crm/v3/objects/notes/batch/create',
         {
-          inputs: proj.files.map((f) => ({
+          inputs: attachmentFiles.map((f) => ({
             associations: [
               {
                 to: {
-                  id: proj.deal.id,
+                  id: project.deal.id,
                 },
                 types: [
                   {
@@ -238,16 +243,8 @@ export default async (req, res) => {
     }
   }
 
-  const name = firstname.concat(' ', lastname);
-  const [phoneNumber, projectAddress, projectType, projectPhase] = [phone, dealname, type, phase];
+  const name = `${firstName} ${lastName}`;
   const attachments = [];
-
-  for (const key in files) {
-    attachments.push({
-      filename: files[key].originalFilename,
-      path: path.resolve(__dirname, files[key].filepath),
-    });
-  }
 
   const contactEmailOpts = contactEmail(email);
   const msgOpts = projectEmail({
@@ -255,22 +252,15 @@ export default async (req, res) => {
     description,
     email,
     name,
-    phoneNumber,
-    projectAddress,
+    phoneNumber: phone,
+    projectAddress: address,
     projectPhase,
     projectType,
   });
+
   await sendEmail(contactEmailOpts);
   await sendEmail(msgOpts);
-
-  for (const key in files) {
-    const filePath = path.resolve(__dirname, files[key].filepath);
-    fs.unlink(filePath, (err) => {
-      if (err) {
-        console.error('Error deleting file: ', err);
-      }
-    });
-  }
-
-  res.status(200).send('Completed');
+  res.status(200).send();
 };
+
+export default addDeal;

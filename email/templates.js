@@ -14,7 +14,6 @@ export const contactEmail = (to) => ({
 });
 
 export const projectEmail = ({
-  attachments,
   description,
   email,
   name,
@@ -58,10 +57,9 @@ export const projectEmail = ({
     <td class="content-block">
       Description: ${description}
     </td>
-  </tr>  
+  </tr>
   `;
   return {
-    attachments,
     from,
     html: getLayout({ content, title: 'Sweeney Restoration - New Contact' }),
     subject: 'Sweeney Restoration - New Contact from Website',

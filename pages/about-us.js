@@ -20,7 +20,7 @@ const employees = [
   },
 ];
 
-const About = () => {
+function About() {
   return (
     <div>
       <Head>
@@ -48,7 +48,7 @@ const About = () => {
         </Content>
         <Content title="Who are we?">
           <Row className="justify-content-center">
-            {employees.map(e => (
+            {employees.map((e) => (
               <Col key={`employee-${e.name}`} sm={12} className="mb-4">
                 <Card className="h-100">
                   <CardBody>
@@ -63,6 +63,6 @@ const About = () => {
       </Container>
     </div>
   );
-};
+}
 
 export default About;

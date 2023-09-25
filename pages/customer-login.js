@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Container } from 'reactstrap';
 import PageHead from '../components/PageHead';
 
-const Portfolio = () => {
+function Portfolio() {
   return (
     <div>
       <Head>
@@ -24,6 +24,6 @@ const Portfolio = () => {
       </Container>
     </div>
   );
-};
+}
 
 export default Portfolio;

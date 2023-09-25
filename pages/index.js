@@ -28,7 +28,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const Home = () => {
+function Home() {
   const classes = useStyles();
   return (
     <>
@@ -72,6 +72,6 @@ const Home = () => {
       </Container>
     </>
   );
-};
+}
 
 export default Home;

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faYelp, faInstagram, faTwitter } from '@fortawesome/fontawesome-free-brands';
 
-const useStyles = createUseStyles(theme => ({
+const useStyles = createUseStyles((theme) => ({
   hbaImages: {
     filter: 'brightness(0) invert(1)',
     margin: 10,
@@ -40,7 +40,7 @@ const locale = {
   phone: <a href="tel:504-533-0007">504-533-0007</a>,
 };
 
-const Footer = () => {
+function Footer() {
   const theme = useTheme();
   const classes = useStyles({ theme });
   const year = new Date().getFullYear();
@@ -130,6 +130,6 @@ const Footer = () => {
       </Row>
     </Container>
   );
-};
+}
 
 export default Footer;

@@ -21,22 +21,21 @@
     "bootstrap": "^4.5.2",
     "classnames": "^2.2.6",
     "formidable": "^3.5.0",
-    "fs": "^0.0.1-security",
+    "formik": "^2.4.5",
     "isomorphic-fetch": "^3.0.0",
     "juice": "^7.0.0",
     "next": "^13.4.19",
     "nodemailer": "^6.4.14",
     "nodemailer-mailgun-transport": "^2.0.1",
-    "path": "^0.12.7",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-google-recaptcha": "^3.1.0",
     "react-image-lightbox": "^5.1.4",
     "react-jss": "^10.3.0",
-    "reactstrap": "^8.5.1"
+    "reactstrap": "^8.10.1",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
-    "@nolajs/eslint-config": "^1.0.0"
+    "@nolajs/eslint-config": "^3.0.0"
   }
 }
