@@ -236,10 +236,6 @@ function Contact() {
                     accept=".xlsx,.xls,image/*,.doc,.docx,.ppt,.pptx,.txt,.pdf,.rtf"
                     onChange={(e) => formik.setFieldValue('attachments', e.target.files)}
                   />
-                  <FormText>
-                    This is some placeholder block-level help text for the above input. It&apos;s a
-                    bit lighter and easily wraps to a new line.
-                  </FormText>
                 </FormGroup>
                 <Button
                   type="submit"
