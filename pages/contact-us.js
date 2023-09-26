@@ -11,7 +11,6 @@ import {
   Label,
   FormGroup,
   FormFeedback,
-  FormText,
   Button,
 } from 'reactstrap';
 import { useFormik } from 'formik';
