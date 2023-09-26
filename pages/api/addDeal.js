@@ -18,8 +18,8 @@ const addDeal = async (req, res) => {
   const project = {};
   try {
     [fields, files] = await form.parse(req);
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.error('Form Error: ', err);
     res.status(500).send();
     return;
   }
