@@ -268,14 +268,14 @@ const addDeal = async (req, res) => {
 
   const contactEmailOpts = contactEmail(email);
   const msgOpts = projectEmail({
-  attachments,
-  description,
-  email,
-  name,
-  phoneNumber: phone,
-  projectAddress: address,
-  projectPhase,
-  projectType,
+    attachments,
+    description,
+    email,
+    name,
+    phoneNumber: phone,
+    projectAddress: address,
+    projectPhase,
+    projectType,
   });
 
   await sendEmail(contactEmailOpts);

@@ -40,7 +40,7 @@ const contactUsSchema = Yup.object().shape({
 contactUsSchema.getDefault();
 
 function Contact() {
-    const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const formik = useFormik({
     initialValues: { ...contactUsSchema.getDefault(), attachments: [] },
@@ -155,7 +155,7 @@ function Contact() {
                   <FormGroup className="flex-grow-1 mx-2">
                     <Label for="projectPhase">Project Phase</Label>
                     <Input
-                                          type="select"
+                      type="select"
                       name="projectPhase"
                       id="projectPhase"
                       invalid={!!(formik.touched.projectPhase && formik.errors.projectPhase)}
@@ -173,7 +173,7 @@ function Contact() {
                   <FormGroup className="flex-grow-1 mx-2">
                     <Label for="projectType">Project Type</Label>
                     <Input
-                                          type="select"
+                      type="select"
                       name="projectType"
                       id="projectType"
                       invalid={!!(formik.touched.projectType && formik.errors.projectType)}
