@@ -49,8 +49,8 @@ const addDeal = async (req, res) => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       method: 'POST',
     }).then((resp) => resp.json());
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.error('Recaptcha Error: ', err);
     res.status(500).send();
     return;
   }
