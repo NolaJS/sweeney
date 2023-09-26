@@ -81,6 +81,7 @@ function Contact() {
     validationSchema: contactUsSchema,
   });
 
+  // TODO: Fix the misaligned select inputs and textarea
   return (
     <div>
       <Head>
