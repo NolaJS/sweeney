@@ -1,6 +1,8 @@
 /* eslint-disable guard-for-in, no-await-in-loop, no-restricted-syntax, no-console */
 import formidable from 'formidable';
 import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
 import sendEmail from '../../email/sendEmail';
 import { contactEmail, projectEmail } from '../../email/templates';
 
@@ -188,16 +190,27 @@ const addDeal = async (req, res) => {
       console.error('Folder Error: ', err);
     }
 
-    const attachmentFiles = [];
     try {
-      for (const key in attachmentFiles) {
-        const currFile = attachmentFiles[key];
+      project.files = [];
+      for (const key in files) {
+        let fileBlob = await new Promise((resolve, reject) => {
+          fs.readFile(path.resolve(__dirname, files[key].filepath), (err, data) => {
+            if (err) {
+              console.error(err);
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
+        });
+
+        fileBlob = new Blob([fileBlob], { type: files[key].mimetype });
         const tempForm = new FormData();
-        tempForm.append('file', currFile, {
-          filename: attachmentFiles[key].originalFilename,
+        tempForm.append('file', fileBlob, {
+          filename: files[key].originalFilename,
         });
         tempForm.append('folderId', project.folder.id);
-        tempForm.append('fileName', attachmentFiles[key].originalFilename);
+        tempForm.append('fileName', files[key].originalFilename);
         tempForm.append('options', JSON.stringify({ access: 'PRIVATE' }));
 
         const temp = await axios.post('https://api.hubapi.com/files/v3/files', tempForm, {
@@ -206,7 +219,7 @@ const addDeal = async (req, res) => {
             'Content-Type': 'multipart/form-data',
           },
         });
-        attachmentFiles.push(temp.data);
+        project.files.push(temp.data);
       }
     } catch (err) {
       console.error('File Error: ', err);
@@ -216,7 +229,7 @@ const addDeal = async (req, res) => {
       await axios.post(
         'https://api.hubapi.com/crm/v3/objects/notes/batch/create',
         {
-          inputs: attachmentFiles.map((f) => ({
+          inputs: project.files.map((f) => ({
             associations: [
               {
                 to: {
@@ -267,6 +280,16 @@ const addDeal = async (req, res) => {
 
   await sendEmail(contactEmailOpts);
   await sendEmail(msgOpts);
+
+  for (const key in files) {
+    const filePath = path.resolve(__dirname, files[key].filepath);
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error('Error deleting file: ', err);
+      }
+    });
+  }
+
   res.status(200).send();
 };
 
