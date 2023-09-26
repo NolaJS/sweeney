@@ -23,6 +23,13 @@ const addDeal = async (req, res) => {
     res.status(500).send();
     return;
   }
+  // Changes fields and files from { firstName: ["name"] } -> { firstName: "name" }
+  for (const key in fields) {
+    [fields[key]] = fields[key];
+  }
+  for (const key in files) {
+    [files[key]] = files[key];
+  }
   const {
     address,
     description,
@@ -248,14 +255,14 @@ const addDeal = async (req, res) => {
 
   const contactEmailOpts = contactEmail(email);
   const msgOpts = projectEmail({
-    attachments,
-    description,
-    email,
-    name,
-    phoneNumber: phone,
-    projectAddress: address,
-    projectPhase,
-    projectType,
+  attachments,
+  description,
+  email,
+  name,
+  phoneNumber: phone,
+  projectAddress: address,
+  projectPhase,
+  projectType,
   });
 
   await sendEmail(contactEmailOpts);
