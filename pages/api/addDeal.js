@@ -1,6 +1,7 @@
 /* eslint-disable guard-for-in, no-await-in-loop, no-restricted-syntax, no-console */
 import formidable from 'formidable';
 import axios from 'axios';
+import fs from 'fs';
 import sendEmail from '../../email/sendEmail';
 import { contactEmail, projectEmail } from '../../email/templates';
 
@@ -12,7 +13,6 @@ export const config = {
 
 const addDeal = async (req, res) => {
   const form = formidable({ multiples: true });
-  console.log('trying this');
   let fields;
   let files;
   const project = {};
@@ -23,17 +23,21 @@ const addDeal = async (req, res) => {
     res.status(500).send();
     return;
   }
+  for (const key in files) {
+    [files[key]] = files[key];
+  }
+
   const {
-    address,
-    description,
-    email,
-    firm,
-    firstName,
-    lastName,
-    phone,
-    projectPhase,
-    projectType,
-    token,
+    address: [address],
+    description: [description],
+    email: [email],
+    firm: [firm],
+    firstName: [firstName],
+    lastName: [lastName],
+    phone: [phone],
+    projectPhase: [projectPhase],
+    projectType: [projectType],
+    token: [token],
   } = fields;
   let recaptchaData;
   try {
@@ -52,12 +56,13 @@ const addDeal = async (req, res) => {
     return;
   }
   try {
+    console.log(address, process.env.DEFAULT_OWNER, process.env.HUBSPOT_KEY);
     const deal = await axios.post(
       'https://api.hubapi.com/crm/v3/objects/deals',
       {
         properties: {
           dealname: address,
-          dealstage: '92486949',
+          dealstage: 'appointmentscheduled',
           hubspot_owner_id: process.env.DEFAULT_OWNER,
         },
       },
@@ -180,17 +185,17 @@ const addDeal = async (req, res) => {
     } catch (err) {
       console.error('Folder Error: ', err);
     }
-
     const attachmentFiles = [];
     try {
-      for (const key in attachmentFiles) {
-        const currFile = attachmentFiles[key];
+      for (const key in files) {
+        const fileBuffer = fs.readFileSync(files[key].filepath);
+        const fileBlob = new Blob([fileBuffer], { type: files[key].mimetype });
         const tempForm = new FormData();
-        tempForm.append('file', currFile, {
-          filename: attachmentFiles[key].originalFilename,
+        tempForm.append('file', fileBlob, {
+          filename: files[key].originalFilename,
         });
         tempForm.append('folderId', project.folder.id);
-        tempForm.append('fileName', attachmentFiles[key].originalFilename);
+        tempForm.append('fileName', files[key].originalFilename);
         tempForm.append('options', JSON.stringify({ access: 'PRIVATE' }));
 
         const temp = await axios.post('https://api.hubapi.com/files/v3/files', tempForm, {
@@ -244,11 +249,9 @@ const addDeal = async (req, res) => {
   }
 
   const name = `${firstName} ${lastName}`;
-  const attachments = [];
 
   const contactEmailOpts = contactEmail(email);
   const msgOpts = projectEmail({
-    attachments,
     description,
     email,
     name,

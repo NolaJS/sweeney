@@ -45,7 +45,7 @@ function Contact() {
   const [error, setError] = useState(false);
   const formik = useFormik({
     initialValues: { ...contactUsSchema.getDefault(), attachments: [] },
-    onSubmit: (values) => {
+    onSubmit: (values, { setSubmitting }) => {
       setError(false);
       const formData = new FormData();
       window.grecaptcha.ready(() => {
@@ -69,8 +69,13 @@ function Contact() {
               body: formData,
               method: 'POST',
             })
-              .then(() => {
-                setSuccess(true);
+              .then((resp) => {
+                if (resp.status === 200) {
+                  setSuccess(true);
+                } else {
+                  setError(true);
+                }
+                setSubmitting(false);
               })
               .catch(() => {
                 setError(true);
@@ -227,18 +232,16 @@ function Contact() {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Label for="exampleFile">File</Label>
+                  <Label for="projectFiles">Project Files</Label>
                   <Input
-                    id="exampleFile"
+                    id="projectFiles"
                     name="file"
                     type="file"
+                    multiple
                     accept=".xlsx,.xls,image/*,.doc,.docx,.ppt,.pptx,.txt,.pdf,.rtf"
                     onChange={(e) => formik.setFieldValue('attachments', e.target.files)}
                   />
-                  <FormText>
-                    This is some placeholder block-level help text for the above input. It&apos;s a
-                    bit lighter and easily wraps to a new line.
-                  </FormText>
+                  <FormText>If available, upload some files for your project.</FormText>
                 </FormGroup>
                 <Button
                   type="submit"
