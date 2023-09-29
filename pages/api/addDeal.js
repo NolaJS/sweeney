@@ -23,9 +23,6 @@ const addDeal = async (req, res) => {
     res.status(500).send();
     return;
   }
-  for (const key in files) {
-    [files[key]] = files[key];
-  }
 
   const {
     address: [address],
@@ -188,14 +185,24 @@ const addDeal = async (req, res) => {
     const attachmentFiles = [];
     try {
       for (const key in files) {
-        const fileBuffer = fs.readFileSync(files[key].filepath);
-        const fileBlob = new Blob([fileBuffer], { type: files[key].mimetype });
+        const [currentFile] = files[key];
+        const fileBuffer = await new Promise((resolve, reject) => {
+          fs.readFile(currentFile.filepath, (err, data) => {
+            if (err) {
+              console.log(err);
+              reject(err);
+            } else {
+              resolve(data);
+            }
+          });
+        });
+        const fileBlob = new Blob([fileBuffer], { type: currentFile.mimetype });
         const tempForm = new FormData();
         tempForm.append('file', fileBlob, {
-          filename: files[key].originalFilename,
+          filename: currentFile.originalFilename,
         });
         tempForm.append('folderId', project.folder.id);
-        tempForm.append('fileName', files[key].originalFilename);
+        tempForm.append('fileName', currentFile.originalFilename);
         tempForm.append('options', JSON.stringify({ access: 'PRIVATE' }));
 
         const temp = await axios.post('https://api.hubapi.com/files/v3/files', tempForm, {
@@ -263,6 +270,15 @@ const addDeal = async (req, res) => {
 
   await sendEmail(contactEmailOpts);
   await sendEmail(msgOpts);
+
+  for (const key in files) {
+    const [currentFile] = files[key];
+    fs.unlink(currentFile.filepath, (err) => {
+      if (err) {
+        console.error('Error deleting file: ', err);
+      }
+    });
+  }
   res.status(200).send();
 };
 

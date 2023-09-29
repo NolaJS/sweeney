@@ -249,6 +249,7 @@ function Contact() {
                   className="mb-4"
                   aria-busy={formik.isSubmitting}
                   disabled={formik.isSubmitting}
+                  color="primary"
                 >
                   Submit
                 </Button>
