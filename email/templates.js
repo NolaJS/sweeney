@@ -1,7 +1,7 @@
 import getLayout from './getLayout';
 
 const from = 'noreply@sweeneyrestoration.com';
-const admins = ['devon@sweeneyrestoration.com'];
+const admins = ['devon@sweeneyrestoration.com', 'scott@sweeneyrestoration.com'];
 
 export const contactEmail = (to) => ({
   from,
