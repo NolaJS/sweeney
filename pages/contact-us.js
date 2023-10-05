@@ -231,7 +231,7 @@ function Contact() {
                     onBlur={formik.handleBlur}
                   />
                 </FormGroup>
-                <FormGroup>
+                <FormGroup className="d-none">
                   <Label for="projectFiles">Project Files</Label>
                   <Input
                     id="projectFiles"
