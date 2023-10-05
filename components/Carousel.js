@@ -77,7 +77,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const AppCarousel = ({ items }) => {
+function AppCarousel({ items }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const classes = useStyles();
@@ -94,7 +94,7 @@ const AppCarousel = ({ items }) => {
     setActiveIndex(nextIndex);
   };
 
-  const goToIndex = newIndex => {
+  const goToIndex = (newIndex) => {
     if (animating) return;
     setActiveIndex(newIndex);
   };
@@ -102,18 +102,16 @@ const AppCarousel = ({ items }) => {
   const slides = useMemo(
     () =>
       items &&
-      items.map(item => {
-        return (
-          <CarouselItem
-            onExiting={() => setAnimating(true)}
-            onExited={() => setAnimating(false)}
-            key={item.src}
-            className={classes.slider}
-          >
-            <img src={item.src} alt={item.altText} className={classes.img} />
-          </CarouselItem>
-        );
-      }),
+      items.map((item) => (
+        <CarouselItem
+          onExiting={() => setAnimating(true)}
+          onExited={() => setAnimating(false)}
+          key={item.src}
+          className={classes.slider}
+        >
+          <img src={item.src} alt={item.altText} className={classes.img} />
+        </CarouselItem>
+      )),
     [items, classes],
   );
 
@@ -155,7 +153,7 @@ const AppCarousel = ({ items }) => {
             className={classes.button}
             type="button"
             key={`small-img-${item.src}`}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               if (animating) return;
               setActiveIndex(i);
@@ -168,7 +166,7 @@ const AppCarousel = ({ items }) => {
       </div>
     </div>
   );
-};
+}
 
 AppCarousel.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

@@ -26,7 +26,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const PageHead = ({ img, title }) => {
+function PageHead({ img, title }) {
   const classes = useStyles();
   return (
     <Jumbotron className={classnames('text-white', classes.root)}>
@@ -34,7 +34,7 @@ const PageHead = ({ img, title }) => {
       <h1 className="display-3 text-center">{title}</h1>
     </Jumbotron>
   );
-};
+}
 
 PageHead.propTypes = {
   img: PropTypes.string.isRequired,

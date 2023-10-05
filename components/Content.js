@@ -14,7 +14,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const Content = ({ children: description, title }) => {
+function Content({ children: description, title }) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -22,7 +22,7 @@ const Content = ({ children: description, title }) => {
       {typeof description === 'string' ? <p>{description}</p> : description}
     </div>
   );
-};
+}
 
 Content.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),

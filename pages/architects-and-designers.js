@@ -3,7 +3,7 @@ import { Row, Col, Container } from 'reactstrap';
 import Content from '../components/Content';
 import PageHead from '../components/PageHead';
 
-const Architects = () => {
+function Architects() {
   return (
     <div>
       <Head>
@@ -53,6 +53,6 @@ const Architects = () => {
       </Container>
     </div>
   );
-};
+}
 
 export default Architects;

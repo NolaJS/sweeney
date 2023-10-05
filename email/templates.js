@@ -3,7 +3,7 @@ import getLayout from './getLayout';
 const from = 'noreply@sweeneyrestoration.com';
 const admins = ['devon@sweeneyrestoration.com'];
 
-export const contactEmail = to => ({
+export const contactEmail = (to) => ({
   from,
   html: getLayout({
     content: `<p>Thank you for your interest! We will respond to your inquiry shortly.</p>`,
@@ -19,6 +19,7 @@ export const projectEmail = ({
   name,
   phoneNumber,
   projectAddress,
+  projectPhase,
   projectType,
 }) => {
   const content = `
@@ -44,6 +45,11 @@ export const projectEmail = ({
   </tr>
   <tr>
     <td class="content-block">
+      Project Type: ${projectPhase}
+    </td>
+  </tr>
+  <tr>
+    <td class="content-block">
       Project Address: ${projectAddress}
     </td>
   </tr>
@@ -51,7 +57,7 @@ export const projectEmail = ({
     <td class="content-block">
       Description: ${description}
     </td>
-  </tr>  
+  </tr>
   `;
   return {
     from,
