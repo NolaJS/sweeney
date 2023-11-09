@@ -63,6 +63,7 @@ function Contact() {
             formData.append('email', values.email);
             formData.append('projectType', values.projectType);
             formData.append('projectPhase', values.projectPhase);
+            formData.append('hasFiles', values.attachments.length ? 'true' : 'false');
 
             fetch('/api/addDeal', {
               body: formData,

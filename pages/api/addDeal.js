@@ -28,6 +28,7 @@ const addDeal = async (req, res) => {
     email: [email],
     firm: [firm],
     firstName: [firstName],
+    hasFiles: [hasFiles],
     lastName: [lastName],
     phone: [phone],
     projectPhase: [projectPhase],
@@ -161,6 +162,27 @@ const addDeal = async (req, res) => {
     );
   } catch (err) {
     console.error('Firm Association Error: ', err);
+  }
+  if (hasFiles === 'true') {
+    try {
+      const folder = await axios.post(
+        'https://api.hubapi.com/files/v3/folders',
+        {
+          name: address,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      project.folder = folder.data;
+    } catch (err) {
+      console.error('Folder Error: ', err);
+    }
+  } else {
+    project.folder = {};
   }
 
   const name = `${firstName} ${lastName}`;
