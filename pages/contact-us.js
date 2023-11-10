@@ -71,20 +71,19 @@ function Contact() {
             })
               .then((resp) => resp.json())
               .then(({ dealId, folderId }) => {
-                if (!values.attachments.length) return true;
+                if (!values.attachments.length) return { status: 200 };
                 secondForm.append('folderId', folderId);
                 secondForm.append('dealId', dealId);
                 for (let i = 0; i < values.attachments.length; i += 1) {
                   secondForm.append(`attachments${i}`, values.attachments[i]);
                 }
-                fetch('https://handlefiles-yeyrbzgx3q-uc.a.run.app', {
+                return fetch('https://handlefiles-yeyrbzgx3q-uc.a.run.app', {
                   body: secondForm,
                   method: 'POST',
                 });
-                return true;
               })
               .then((resp) => {
-                if (resp) {
+                if (resp.status === 200) {
                   setSuccess(true);
                 } else {
                   setError(true);
