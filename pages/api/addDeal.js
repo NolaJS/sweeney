@@ -1,7 +1,6 @@
 /* eslint-disable guard-for-in, no-await-in-loop, no-restricted-syntax, no-console */
 import formidable from 'formidable';
 import axios from 'axios';
-import fs from 'fs';
 import sendEmail from '../../email/sendEmail';
 import { contactEmail, projectEmail } from '../../email/templates';
 
@@ -14,10 +13,9 @@ export const config = {
 const addDeal = async (req, res) => {
   const form = formidable({ multiples: true });
   let fields;
-  let files;
   const project = {};
   try {
-    [fields, files] = await form.parse(req);
+    [fields] = await form.parse(req);
   } catch (e) {
     console.log(e);
     res.status(500).send();
@@ -30,6 +28,7 @@ const addDeal = async (req, res) => {
     email: [email],
     firm: [firm],
     firstName: [firstName],
+    hasFiles: [hasFiles],
     lastName: [lastName],
     phone: [phone],
     projectPhase: [projectPhase],
@@ -164,7 +163,7 @@ const addDeal = async (req, res) => {
   } catch (err) {
     console.error('Firm Association Error: ', err);
   }
-  if (files) {
+  if (hasFiles === 'true') {
     try {
       const folder = await axios.post(
         'https://api.hubapi.com/files/v3/folders',
@@ -182,77 +181,8 @@ const addDeal = async (req, res) => {
     } catch (err) {
       console.error('Folder Error: ', err);
     }
-    const attachmentFiles = [];
-    try {
-      for (const key in files) {
-        const [currentFile] = files[key];
-        const fileBuffer = await new Promise((resolve, reject) => {
-          fs.readFile(currentFile.filepath, (err, data) => {
-            if (err) {
-              console.log(err);
-              reject(err);
-            } else {
-              resolve(data);
-            }
-          });
-        });
-        const fileBlob = new Blob([fileBuffer], { type: currentFile.mimetype });
-        const tempForm = new FormData();
-        tempForm.append('file', fileBlob, {
-          filename: currentFile.originalFilename,
-        });
-        tempForm.append('folderId', project.folder.id);
-        tempForm.append('fileName', currentFile.originalFilename);
-        tempForm.append('options', JSON.stringify({ access: 'PRIVATE' }));
-
-        const temp = await axios.post('https://api.hubapi.com/files/v3/files', tempForm, {
-          headers: {
-            Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        attachmentFiles.push(temp.data);
-      }
-    } catch (err) {
-      console.error('File Error: ', err);
-    }
-
-    try {
-      await axios.post(
-        'https://api.hubapi.com/crm/v3/objects/notes/batch/create',
-        {
-          inputs: attachmentFiles.map((f) => ({
-            associations: [
-              {
-                to: {
-                  id: project.deal.id,
-                },
-                types: [
-                  {
-                    associationCategory: 'HUBSPOT_DEFINED',
-                    associationTypeId: 214,
-                  },
-                ],
-              },
-            ],
-            properties: {
-              hs_attachment_ids: f.id,
-              hs_note_body: f.id,
-              hs_timestamp: Date.now(),
-              hubspot_owner_id: process.env.DEFAULT_OWNER,
-            },
-          })),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-    } catch (err) {
-      console.error('Note Error: ', err);
-    }
+  } else {
+    project.folder = {};
   }
 
   const name = `${firstName} ${lastName}`;
@@ -271,15 +201,7 @@ const addDeal = async (req, res) => {
   await sendEmail(contactEmailOpts);
   await sendEmail(msgOpts);
 
-  for (const key in files) {
-    const [currentFile] = files[key];
-    fs.unlink(currentFile.filepath, (err) => {
-      if (err) {
-        console.error('Error deleting file: ', err);
-      }
-    });
-  }
-  res.status(200).send();
+  res.status(200).json({ dealId: project.deal.id, folderId: project.folder.id });
 };
 
 export default addDeal;

@@ -48,6 +48,7 @@ function Contact() {
     onSubmit: (values, { setSubmitting }) => {
       setError(false);
       const formData = new FormData();
+      const secondForm = new FormData();
       window.grecaptcha.ready(() => {
         window.grecaptcha
           .execute('6LcttdgZAAAAADqMr5udsQdCKWQies8zkPSiMZoi', { action: 'submit' })
@@ -62,13 +63,25 @@ function Contact() {
             formData.append('email', values.email);
             formData.append('projectType', values.projectType);
             formData.append('projectPhase', values.projectPhase);
-            for (let i = 0; i < values.attachments.length; i += 1) {
-              formData.append(`attachments${i}`, values.attachments[i]);
-            }
+            formData.append('hasFiles', values.attachments.length ? 'true' : 'false');
+
             fetch('/api/addDeal', {
               body: formData,
               method: 'POST',
             })
+              .then((resp) => resp.json())
+              .then(({ dealId, folderId }) => {
+                if (!values.attachments.length) return { status: 200 };
+                secondForm.append('folderId', folderId);
+                secondForm.append('dealId', dealId);
+                for (let i = 0; i < values.attachments.length; i += 1) {
+                  secondForm.append(`attachments${i}`, values.attachments[i]);
+                }
+                return fetch('https://handlefiles-yeyrbzgx3q-uc.a.run.app', {
+                  body: secondForm,
+                  method: 'POST',
+                });
+              })
               .then((resp) => {
                 if (resp.status === 200) {
                   setSuccess(true);
@@ -79,6 +92,7 @@ function Contact() {
               })
               .catch(() => {
                 setError(true);
+                setSubmitting(false);
               });
           });
       });
@@ -231,7 +245,7 @@ function Contact() {
                     onBlur={formik.handleBlur}
                   />
                 </FormGroup>
-                <FormGroup className="d-none">
+                <FormGroup>
                   <Label for="projectFiles">Project Files</Label>
                   <Input
                     id="projectFiles"
