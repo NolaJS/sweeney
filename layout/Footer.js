@@ -1,6 +1,7 @@
 import { Row, Col, Container } from 'reactstrap';
 import { createUseStyles, useTheme } from 'react-jss';
 import classnames from 'classnames';
+import Script from 'next/script';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faYelp, faInstagram, faTwitter } from '@fortawesome/fontawesome-free-brands';
 
@@ -128,6 +129,12 @@ function Footer() {
           </a>
         </Col>
       </Row>
+      <div className="nj-engage" data-position="left" />
+      <Script
+        type="text/javascript"
+        src="https://cdn.nicejob.co/js/sdk.min.js?id=4697167944089600"
+        defer
+      />
     </Container>
   );
 }

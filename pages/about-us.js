@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { Container, Row, Col, Card, CardTitle, CardBody, CardSubtitle } from 'reactstrap';
+import Script from 'next/script';
 import Content from '../components/Content';
 import PageHead from '../components/PageHead';
 
@@ -61,6 +62,12 @@ function About() {
           </Row>
         </Content>
       </Container>
+      <div className="nj-stories" />{' '}
+      <Script
+        type="text/javascript"
+        src="https://cdn.nicejob.co/js/sdk.min.js?id=4697167944089600"
+        defer
+      />
     </div>
   );
 }
