@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { Container, Row, Col, Card, CardTitle, CardBody, CardSubtitle } from 'reactstrap';
-import { useEffect } from 'react';
 import Content from '../components/Content';
 import PageHead from '../components/PageHead';
 
@@ -22,11 +21,6 @@ const employees = [
 ];
 
 function About() {
-  useEffect(() => {
-    if (window.NiceJobSDKv2) {
-      window.NiceJobSDKv2();
-    }
-  }, []);
   return (
     <div>
       <Head>
