@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Jumbotron, Container, Button } from 'reactstrap';
 import { createUseStyles } from 'react-jss';
 import classnames from 'classnames';
+import { useEffect } from 'react';
 
 import Content from '../components/Content';
 
@@ -30,6 +31,11 @@ const useStyles = createUseStyles({
 
 function Home() {
   const classes = useStyles();
+  useEffect(() => {
+    if (window.NiceJobSDKv2) {
+      window.NiceJobSDKv2();
+    }
+  }, []);
   return (
     <>
       <Head>

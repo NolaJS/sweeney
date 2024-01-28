@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Container, Row, Col, Card, CardTitle, CardBody, CardSubtitle } from 'reactstrap';
-import Script from 'next/script';
+import { useEffect } from 'react';
 import Content from '../components/Content';
 import PageHead from '../components/PageHead';
 
@@ -22,6 +22,11 @@ const employees = [
 ];
 
 function About() {
+  useEffect(() => {
+    if (window.NiceJobSDKv2) {
+      window.NiceJobSDKv2();
+    }
+  }, []);
   return (
     <div>
       <Head>
@@ -62,13 +67,7 @@ function About() {
           </Row>
         </Content>
       </Container>
-      <div className="nj-stories" />{' '}
-      <Script
-        type="text/javascript"
-        src="https://cdn.nicejob.co/js/sdk.min.js?id=4697167944089600"
-        defer
-        strategy="lazyOnload"
-      />
+      <div className="nj-stories" />
     </div>
   );
 }
