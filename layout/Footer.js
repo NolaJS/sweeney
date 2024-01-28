@@ -134,6 +134,7 @@ function Footer() {
         type="text/javascript"
         src="https://cdn.nicejob.co/js/sdk.min.js?id=4697167944089600"
         defer
+        strategy="lazyOnload"
       />
     </Container>
   );
