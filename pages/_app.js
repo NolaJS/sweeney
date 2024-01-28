@@ -1,6 +1,7 @@
 import App from 'next/app';
 import { ThemeProvider } from 'react-jss';
 import { config } from '@fortawesome/fontawesome-svg-core';
+import Script from 'next/script';
 
 import theme from '../themes/default';
 import Layout from '../layout/Layout';
@@ -25,6 +26,7 @@ export default class MyApp extends App {
         <Layout>
           <Component {...pageProps} />
         </Layout>
+        <Script src="https://cdn.nicejob.co/js/sdk.min.js?id=4697167944089600" />
       </ThemeProvider>
     );
   }
