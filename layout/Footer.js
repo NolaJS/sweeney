@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faYelp, faInstagram, faTwitter } from '@fortawesome/fontawesome-free-brands';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 
 const useStyles = createUseStyles((theme) => ({
   hbaImages: {
@@ -144,6 +145,7 @@ function Footer() {
         </Col>
       </Row>
       <div className="nj-engage" data-position="left" />
+      <Script src="https://cdn.nicejob.co/js/sdk.min.js?id=4697167944089600" />
     </Container>
   );
 }
