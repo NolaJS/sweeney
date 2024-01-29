@@ -3,6 +3,8 @@ import { createUseStyles, useTheme } from 'react-jss';
 import classnames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faYelp, faInstagram, faTwitter } from '@fortawesome/fontawesome-free-brands';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const useStyles = createUseStyles((theme) => ({
   hbaImages: {
@@ -42,8 +44,21 @@ const locale = {
 
 function Footer() {
   const theme = useTheme();
+  const router = useRouter();
   const classes = useStyles({ theme });
   const year = new Date().getFullYear();
+
+  useEffect(() => {
+    const runSDK = () => {
+      if (window.NiceJobSDKv2) {
+        window.NiceJobSDKv2();
+      }
+    };
+    router.events.on('routeChangeComplete', runSDK);
+    return () => {
+      router.events.off('routeChangeComplete', runSDK);
+    };
+  }, [router.events]);
   return (
     <Container fluid className={classnames('p-3 text-white', classes.root)}>
       <Container>
@@ -128,6 +143,9 @@ function Footer() {
           </a>
         </Col>
       </Row>
+      <Container>
+        <div className="nj-engage" data-position="left" />
+      </Container>
     </Container>
   );
 }

@@ -61,6 +61,7 @@ function About() {
           </Row>
         </Content>
       </Container>
+      <div className="nj-stories" />
     </div>
   );
 }
