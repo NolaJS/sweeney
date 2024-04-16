@@ -59,6 +59,7 @@ const addDeal = async (req, res) => {
         properties: {
           dealname: address,
           dealstage: 'appointmentscheduled',
+          description,
           hubspot_owner_id: process.env.DEFAULT_OWNER,
         },
       },
