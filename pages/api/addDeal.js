@@ -59,7 +59,6 @@ const addDeal = async (req, res) => {
         properties: {
           dealname: address,
           dealstage: 'appointmentscheduled',
-          description,
           hubspot_owner_id: process.env.DEFAULT_OWNER,
         },
       },
@@ -73,6 +72,30 @@ const addDeal = async (req, res) => {
     project.deal = deal.data;
   } catch (err) {
     console.error('Deal Error: ', err);
+  }
+
+  try {
+    await axios.post('https://api.hubapi.com/crm/v3/objects/notes', {
+      associations: [
+        {
+          to: {
+            id: project.deal.id,
+          },
+          types: [
+            {
+              associationCategory: 'HUBSPOT_DEFINED',
+              associationTypeId: 213,
+            },
+          ],
+        },
+      ],
+      properties: {
+        hs_note_body: description,
+        hubspot_owner_id: process.env.DEFAULT_OWNER,
+      },
+    });
+  } catch (err) {
+    console.error('Note Error: ', err);
   }
 
   try {
