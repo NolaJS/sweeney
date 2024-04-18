@@ -98,7 +98,7 @@ const addDeal = async (req, res) => {
 
   try {
     await axios.put(
-      `https://api.hubapi.com/crm/v4/objects/notes/${project.note.id}/associations/deal/${project.deal.id}`,
+      `https://api.hubapi.com/crm/v4/objects/note/${project.note.id}/associations/deal/${project.deal.id}`,
       [
         {
           associationCategory: 'HUBSPOT_DEFINED',
