@@ -75,23 +75,9 @@ const addDeal = async (req, res) => {
   }
 
   try {
-    await axios.post(
+    const note = await axios.post(
       'https://api.hubapi.com/crm/v3/objects/notes',
       {
-        associations: [
-          {
-            to: {
-              id: project.deal.id,
-              type: 'DEAL',
-            },
-            types: [
-              {
-                associationCategory: 'HUBSPOT_DEFINED',
-                associationTypeId: 213,
-              },
-            ],
-          },
-        ],
         properties: {
           hs_note_body: description,
           hs_timestamp: Date.now(),
@@ -105,8 +91,29 @@ const addDeal = async (req, res) => {
         },
       },
     );
+    project.note = note.data;
   } catch (err) {
     console.error('Note Error: ', err);
+  }
+
+  try {
+    await axios.put(
+      `https://api.hubapi.com/crm/v4/objects/notes/${project.note.id}/associations/deal/${project.deal.id}`,
+      [
+        {
+          associationCategory: 'HUBSPOT_DEFINED',
+          associationTypeId: 213,
+        },
+      ],
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+  } catch (err) {
+    console.error('Note Association Error: ', err);
   }
 
   try {
