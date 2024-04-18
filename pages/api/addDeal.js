@@ -93,6 +93,7 @@ const addDeal = async (req, res) => {
         ],
         properties: {
           hs_note_body: description,
+          hs_timestamp: Date.now(),
           hubspot_owner_id: process.env.DEFAULT_OWNER,
         },
       },
