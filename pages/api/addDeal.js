@@ -102,7 +102,7 @@ const addDeal = async (req, res) => {
       [
         {
           associationCategory: 'HUBSPOT_DEFINED',
-          associationTypeId: 213,
+          associationTypeId: 214,
         },
       ],
       {
