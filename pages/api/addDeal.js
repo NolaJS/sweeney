@@ -75,6 +75,48 @@ const addDeal = async (req, res) => {
   }
 
   try {
+    const note = await axios.post(
+      'https://api.hubapi.com/crm/v3/objects/notes',
+      {
+        properties: {
+          hs_note_body: description,
+          hs_timestamp: Date.now(),
+          hubspot_owner_id: process.env.DEFAULT_OWNER,
+        },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    project.note = note.data;
+  } catch (err) {
+    console.error('Note Error: ', err);
+  }
+
+  try {
+    await axios.put(
+      `https://api.hubapi.com/crm/v4/objects/note/${project.note.id}/associations/deal/${project.deal.id}`,
+      [
+        {
+          associationCategory: 'HUBSPOT_DEFINED',
+          associationTypeId: 214,
+        },
+      ],
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.HUBSPOT_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+  } catch (err) {
+    console.error('Note Association Error: ', err);
+  }
+
+  try {
     const contact = await axios.post(
       'https://api.hubapi.com/crm/v3/objects/contacts',
       {

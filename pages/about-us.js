@@ -18,6 +18,14 @@ const employees = [
     name: 'Angele Dassel',
     title: 'Selections Manager',
   },
+  {
+    name: 'Scott Ward',
+    title: 'Director of Business Development',
+  },
+  {
+    name: 'Craig Corwin',
+    title: 'Project Manager',
+  },
 ];
 
 function About() {
