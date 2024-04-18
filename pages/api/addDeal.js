@@ -82,6 +82,7 @@ const addDeal = async (req, res) => {
           {
             to: {
               id: project.deal.id,
+              type: 'DEAL',
             },
             types: [
               {
